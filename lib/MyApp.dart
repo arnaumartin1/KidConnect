@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import 'HomePage.dart';
 import 'LoginScreen.dart';
+import 'ParentDashboardScreen.dart';
+import 'ParentHomeScreen.dart';
+import 'ProfessionalDashboardScreen.dart';
+import 'ProfessionalHomeScreen.dart';
 import 'RegisterScreen.dart';
 import 'UserTypeSelectionScreen.dart';
-import 'ParentHomeScreen.dart';
-import 'ParentDashboardScreen.dart';
-import 'ProfessionalHomeScreen.dart';
-import 'ProfessionalDashboardScreen.dart';
-void main() {
-  runApp(const MyApp());
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -76,31 +71,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
