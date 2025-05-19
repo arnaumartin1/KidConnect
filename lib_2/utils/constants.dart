@@ -1,0 +1,1 @@
+const kPrimaryColor = 0xFF6C63FF;
