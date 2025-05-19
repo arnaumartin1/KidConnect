@@ -9,7 +9,21 @@ import 'ParentHomeScreen.dart';
 import 'ParentDashboardScreen.dart';
 import 'ProfessionalHomeScreen.dart';
 import 'ProfessionalDashboardScreen.dart';
-void main() {
+import 'db_helper.dart';
+import 'AddServicePage.dart';
+
+void main() async {
+  // Ensure Flutter is initialized before using platform channels
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  try {
+    // Initialize the database
+    await DBHelper.initDB();
+    print('Database initialized successfully');
+  } catch (e) {
+    print('Error initializing database: $e');
+  }
+  
   runApp(const MyApp());
 }
 
@@ -72,6 +86,7 @@ class MyApp extends StatelessWidget {
         '/parent_dashboard': (context) => const ParentDashboardScreen(),
         '/professional_home': (context) => const ProfessionalHomeScreen(), // Debes crear esta pantalla
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
+        '/add_service': (context) => const AddServicePage(),
       },
     );
   }
