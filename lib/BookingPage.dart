@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'Service.dart';
 import 'Booking.dart';
-
+import 'ParentDashboardScreen.dart';
 
 // Mock data for bookings
 final List<Booking> mockBookings = [
@@ -17,6 +17,36 @@ final List<Booking> mockBookings = [
     providerName: 'María García',
     date: DateTime.now().subtract(const Duration(days: 7)),
     price: 12.0,
+  ),
+  Booking(
+    serviceTitle: 'Clases de matemáticas',
+    providerName: 'Luis Fernández',
+    date: DateTime.now().subtract(const Duration(days: 10)),
+    price: 20.0,
+  ),
+  Booking(
+    serviceTitle: 'Cuidado de niños',
+    providerName: 'Laura Martínez',
+    date: DateTime.now().subtract(const Duration(days: 15)),
+    price: 40.0,
+  ),
+  Booking(
+    serviceTitle: 'Clases de música',
+    providerName: 'Carlos Sánchez',
+    date: DateTime.now().subtract(const Duration(days: 20)),
+    price: 50.0,
+  ),
+  Booking(
+    serviceTitle: 'Clases de programación',
+    providerName: 'María García',
+    date: DateTime.now().subtract(const Duration(days: 25)),
+    price: 30.0,
+  ),
+  Booking(
+    serviceTitle: 'Cuidado de niños',
+    providerName: 'Ana Pérez',
+    date: DateTime.now().subtract(const Duration(days: 30)),
+    price: 25.0,
   ),
 ];
 
@@ -99,27 +129,32 @@ class _BookingPageState extends State<BookingPage> {
   }
 
   void _confirmBooking() {
-    final dateTime = DateTime(
-      _selectedDate!.year,
-      _selectedDate!.month,
-      _selectedDate!.day,
-      _selectedTime!.hour,
-      _selectedTime!.minute,
-    );
+  final dateTime = DateTime(
+    _selectedDate!.year,
+    _selectedDate!.month,
+    _selectedDate!.day,
+    _selectedTime!.hour,
+    _selectedTime!.minute,
+  );
 
-    mockBookings.add(
-      Booking(
-        serviceTitle: widget.service.title,
-        providerName: 'Proveedor Desconocido',
-        date: dateTime,
-        price: widget.service.price,
-      ),
-    );
+  mockBookings.add(
+    Booking(
+      serviceTitle: widget.service.title,
+      providerName: 'Proveedor Desconocido',
+      date: dateTime,
+      price: widget.service.price,
+    ),
+  );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Reserva confirmada')),
-    );
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Reserva confirmada')),
+  );
 
-    Navigator.popUntil(context, (route) => route.isFirst);
-  }
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (_) => const ParentDashboardScreen()),
+    (route) => false,
+  );
+}
+
 }

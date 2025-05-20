@@ -1,7 +1,77 @@
 import 'package:flutter/material.dart';
+import 'db_helper.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+  
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      
+      try {
+        final user = await DBHelper.findUser(_emailController.text.trim());
+        
+        if (user != null && user['password'] == _passwordController.text) {
+          // Login successful
+          if (!mounted) return;
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Inicio de sesión exitoso'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          
+          // Navigate to user type selection screen
+          Navigator.pushReplacementNamed(context, '/user_type_selection');
+        } else {
+          // Login failed
+          if (!mounted) return;
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Correo o contraseña incorrectos'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        if (!mounted) return;
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +81,11 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             const Text(
               'Bienvenido a KidConnect',
               style: TextStyle(
@@ -24,18 +96,36 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             TextFormField(
+              controller: _emailController,
               decoration: const InputDecoration(
                 labelText: 'Correo electrónico',
                 border: OutlineInputBorder(),
               ),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, ingresa tu correo electrónico';
+                }
+                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                  return 'Por favor, ingresa un correo electrónico válido';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 20),
             TextFormField(
+              controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Contraseña',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, ingresa tu contraseña';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 10),
             Align(
@@ -49,10 +139,14 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () {
-                // Handle login
-              },
-              child: const Text('Iniciar Sesión'),
+              onPressed: _isLoading ? null : _login,
+              child: _isLoading 
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(color: Colors.white),
+                  )
+                : const Text('Iniciar Sesión'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -62,6 +156,7 @@ class LoginScreen extends StatelessWidget {
               child: const Text('Registrarme'),
             ),
           ],
+          ),
         ),
       ),
     );

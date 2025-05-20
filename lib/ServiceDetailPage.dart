@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Service.dart';
 import 'Booking.dart';
 import 'ChatPage.dart';
+import 'BookingPage.dart';
 
 class ServiceDetailPage extends StatelessWidget {
   final Service service;
@@ -25,21 +26,16 @@ class ServiceDetailPage extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                mockBookings.add(
-                  Booking(
-                    serviceTitle: service.title,
-                    providerName: "Profesional Desconocido",
-                    date: DateTime.now(),
-                    price: service.price,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => BookingPage(service: service),
                   ),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Reserva realizada")),
-                );
-                Navigator.pop(context);
               },
               child: const Text('Reservar'),
             ),
+
             const SizedBox(height: 10),
             OutlinedButton(
               onPressed: () {
@@ -76,5 +72,35 @@ final List<Booking> mockBookings = [
     providerName: 'María García',
     date: DateTime.now().subtract(const Duration(days: 7)),
     price: 12.0,
+  ),
+  Booking(
+    serviceTitle: 'Clases de matemáticas',
+    providerName: 'Luis Fernández',
+    date: DateTime.now().subtract(const Duration(days: 10)),
+    price: 20.0,
+  ),
+  Booking(
+    serviceTitle: 'Cuidado de niños',
+    providerName: 'Laura Martínez',
+    date: DateTime.now().subtract(const Duration(days: 15)),
+    price: 40.0,
+  ),
+  Booking(
+    serviceTitle: 'Clases de música',
+    providerName: 'Carlos Sánchez',
+    date: DateTime.now().subtract(const Duration(days: 20)),
+    price: 50.0,
+  ),
+  Booking(
+    serviceTitle: 'Clases de programación',
+    providerName: 'María García',
+    date: DateTime.now().subtract(const Duration(days: 25)),
+    price: 30.0,
+  ),
+  Booking(
+    serviceTitle: 'Cuidado de niños',
+    providerName: 'Ana Pérez',
+    date: DateTime.now().subtract(const Duration(days: 30)),
+    price: 25.0,
   ),
 ];
