@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:intl/intl.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart'; // <-- Agrega esto
 
 import 'HomePage.dart';
 import 'LoginScreen.dart';
@@ -16,6 +17,10 @@ void main() async {
   // Ensure Flutter is initialized before using platform channels
   WidgetsFlutterBinding.ensureInitialized();
   
+  // Inicializa sqflite para escritorio
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
   try {
     // Initialize the database
     await DBHelper.initDB();
