@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'db_helper.dart';
 
+import 'AddServicePage.dart';
+import 'ProfessionalProfilePage.dart';
 import '/login_splash_screen.dart';
 import '/loginscreen.dart';
 import '/registerscreen.dart';
@@ -11,6 +13,7 @@ import '/parentdashboardscreen.dart';
 import '/professionalhomescreen.dart';
 import '/professionaldashboardscreen.dart';
 import '/addservicepage.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'KidConnect',
+      debugShowCheckedModeBanner: false, 
       theme: ThemeData(
         colorScheme: ColorScheme.light(
           primary: const Color.fromARGB(255, 34, 178, 189),
@@ -69,6 +73,7 @@ class MyApp extends StatelessWidget {
         '/professional_home': (context) => const ProfessionalHomeScreen(),
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
         '/add_service': (context) => const AddServicePage(),
+        '/professional_profile': (context) => const ProfessionalProfilePage(),
       },
     );
   }
