@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'AddServicePage.dart';
+import 'ProfessionalProfilePage.dart';
 
 class ProfessionalHomeScreen extends StatefulWidget {
-  const ProfessionalHomeScreen({super.key});
+  final Map<String, dynamic> user;
+
+  const ProfessionalHomeScreen({super.key, required this.user});
 
   @override
   State<ProfessionalHomeScreen> createState() => _ProfessionalHomeScreenState();
@@ -84,7 +87,17 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
           if (index == 1) {
             Navigator.pushNamed(context, '/professional_dashboard');
           } else if (index == 2) {
-            Navigator.pushNamed(context, '/professional_profile');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfessionalProfilePage(
+                  userInfo: widget.user.map((key, value) => MapEntry(key, value.toString())),
+                  services: myServices,
+                ),
+              ),
+            );
+          } else {
+            Navigator.pushNamed(context, '/professional_home');
           }
         },
         items: const [

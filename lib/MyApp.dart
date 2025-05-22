@@ -65,7 +65,10 @@ class MyApp extends StatelessWidget {
         '/user_type_selection': (context) => const UserTypeSelectionScreen(),
         '/parent_home': (context) => const ParentHomeScreen(), // Debes crear esta pantalla
         '/parent_dashboard': (context) => const ParentDashboardScreen(),
-        '/professional_home': (context) => const ProfessionalHomeScreen(), // Debes crear esta pantalla
+        '/professional_home': (context) {
+          final user = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return ProfessionalHomeScreen(user: user);
+        }, // Debes crear esta pantalla
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
       },
     );

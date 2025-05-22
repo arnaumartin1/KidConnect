@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project1/UserTypeSelectionScreen.dart';
 import 'db_helper.dart';
 import 'databases/database_helper.dart';
+import 'ProfessionalHomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,27 +29,42 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _isLoading = true;
       });
-      
+
       try {
         final user = await DatabaseHelper().findUser(_emailController.text.trim());
-        
+
         if (user != null && user['password'] == _passwordController.text) {
-          // Login successful
           if (!mounted) return;
-          
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Inicio de sesión exitoso'),
               backgroundColor: Colors.green,
             ),
           );
-          
-          // Navigate to user type selection screen
-          Navigator.pushReplacementNamed(context, '/user_type_selection');
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UserTypeSelectionScreen(),
+            ),
+          );
+          // // Navegar segons el tipus d'usuari
+          // if (user['userType'] == 'professional') {
+          //   
+          //   );
+          // } else if (user['userType'] == 'parent') {
+          //   Navigator.pushReplacementNamed(context, '/parent_home');
+          // } else {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     const SnackBar(
+          //       content: Text('Tipo de usuario desconocido'),
+          //       backgroundColor: Colors.orange,
+          //     ),
+          //   );
+          // }
         } else {
-          // Login failed
           if (!mounted) return;
-          
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Correo o contraseña incorrectos'),
@@ -57,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       } catch (e) {
         if (!mounted) return;
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error: ${e.toString()}'),
@@ -73,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,7 @@ import 'ProfessionalHomeScreen.dart';
 import 'ProfessionalDashboardScreen.dart';
 import 'db_helper.dart';
 import 'AddServicePage.dart';
+import 'ProfessionalProfilePage.dart';
 
 void main() async {
   // Ensure Flutter is initialized before using platform channels
@@ -89,38 +90,14 @@ class MyApp extends StatelessWidget {
         '/user_type_selection': (context) => const UserTypeSelectionScreen(),
         '/parent_home': (context) => const ParentHomeScreen(), // Debes crear esta pantalla
         '/parent_dashboard': (context) => const ParentDashboardScreen(),
-        '/professional_home': (context) => const ProfessionalHomeScreen(), // Debes crear esta pantalla
+        '/professional_home': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments;
+          final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
+          return ProfessionalHomeScreen(user: user);
+        }, // Debes crear esta pantalla
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
         '/add_service': (context) => const AddServicePage(),
       },
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
