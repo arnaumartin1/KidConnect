@@ -1,60 +1,87 @@
 import 'package:flutter/material.dart';
 
-class ProfessionalProfilePage extends StatefulWidget {
-  const ProfessionalProfilePage({super.key});
+class ProfessionalProfilePage extends StatelessWidget {
+  final Map<String, String> userInfo;
+  final List<Map<String, String>> services;
 
-  @override
-  State<ProfessionalProfilePage> createState() => _ProfessionalProfilePageState();
-}
-
-class _ProfessionalProfilePageState extends State<ProfessionalProfilePage> {
-  final _nameController = TextEditingController(text: "Álex");
-  final _ageController = TextEditingController(text: "26");
-  final _cityController = TextEditingController(text: "Barcelona");
-  final _descriptionController = TextEditingController(text: "Profesor de idiomas. Traducción e interpretación.");
+  const ProfessionalProfilePage({
+    super.key,
+    required this.userInfo,
+    required this.services,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mi perfil')),
-      body: Padding(
+      appBar: AppBar(title: const Text('Mi Perfil')),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/profile_placeholder.png'), // Puedes poner una imagen genérica
+            const Center(
+              child: CircleAvatar(
+                radius: 40,
+                child: Icon(Icons.person, size: 50),
+              ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Nombre completo'),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Nombre completo',
+                border: OutlineInputBorder(),
+              ),
+              initialValue: '${userInfo['name'] ?? ''} ${userInfo['surname'] ?? ''}',
+              readOnly: true,
             ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _ageController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Edad'),
+            const SizedBox(height: 20),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Correo electrónico',
+                border: OutlineInputBorder(),
+              ),
+              initialValue: userInfo['email'] ?? '',
+              readOnly: true,
             ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _cityController,
-              decoration: const InputDecoration(labelText: 'Ciudad'),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _descriptionController,
-              maxLines: 4,
-              decoration: const InputDecoration(labelText: 'Descripción'),
+            const SizedBox(height: 20),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Ciudad',
+                border: OutlineInputBorder(),
+              ),
+              initialValue: userInfo['city'] ?? 'Ciudad no definida',
             ),
             const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Perfil actualizado')),
-                );
-              },
-              child: const Text('Guardar cambios'),
+            const Text(
+              'Mis Servicios',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            services.isEmpty
+                ? const Text('Aún no tienes servicios registrados.')
+                : Column(
+                    children: services.map((service) {
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: ListTile(
+                          title: Text(service['title'] ?? ''),
+                          subtitle: Text(
+                            '${service['description'] ?? ''} • ${service['price'] ?? ''}',
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+            const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Perfil actualizado')),
+                  );
+                },
+                child: const Text('Guardar cambios'),
+              ),
             ),
           ],
         ),

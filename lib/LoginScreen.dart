@@ -1,8 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:project1/UserTypeSelectionScreen.dart';
+import 'db_helper.dart';
+import 'databases/database_helper.dart';
+import 'ProfessionalHomeScreen.dart';
 import '/widgets/StyledContainer.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+  
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final user = await DatabaseHelper().findUser(_emailController.text.trim());
+
+        if (user != null && user['password'] == _passwordController.text) {
+          if (!mounted) return;
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Inicio de sesión exitoso'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UserTypeSelectionScreen(),
+            ),
+          );
+          // // Navegar segons el tipus d'usuari
+          // if (user['userType'] == 'professional') {
+          //   
+          //   );
+          // } else if (user['userType'] == 'parent') {
+          //   Navigator.pushReplacementNamed(context, '/parent_home');
+          // } else {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     const SnackBar(
+          //       content: Text('Tipo de usuario desconocido'),
+          //       backgroundColor: Colors.orange,
+          //     ),
+          //   );
+          // }
+        } else {
+          if (!mounted) return;
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Correo o contraseña incorrectos'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

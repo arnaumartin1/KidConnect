@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
+import 'AddServicePage.dart';
+import 'ProfessionalProfilePage.dart';
 import '../widgets/styledcontainer.dart';
 
-class ProfessionalHomeScreen extends StatelessWidget {
-  const ProfessionalHomeScreen({super.key});
+class ProfessionalHomeScreen extends StatefulWidget {
+  final Map<String, dynamic> user;
+
+  const ProfessionalHomeScreen({super.key, required this.user});
+
+  @override
+  State<ProfessionalHomeScreen> createState() => _ProfessionalHomeScreenState();
+}
+
+class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
+  // Simulación de servicios del profesional
+  final List<Map<String, String>> myServices = [
+    {
+      'title': 'Clases de inglés para niños',
+      'description': 'Aprende inglés de forma divertida',
+      'city': 'Madrid',
+      'price': '15€/h',
+    },
+    {
+      'title': 'Taller de robótica',
+      'description': 'Robótica educativa para todas las edades',
+      'city': 'Barcelona',
+      'price': '20€/h',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +44,46 @@ class ProfessionalHomeScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF6B8C89),
               ),
+      appBar: AppBar(
+        title: const Text('Mis Servicios'),
+      ),
+      body: myServices.isEmpty
+          ? const Center(child: Text('No tienes servicios publicados aún.'))
+          : ListView.builder(
+              itemCount: myServices.length,
+              itemBuilder: (context, index) {
+                final service = myServices[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: ListTile(
+                    title: Text(service['title']!),
+                    subtitle: Text('${service['description']} • ${service['city']} • ${service['price']}'),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () async {
+                        final updatedService = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddServicePage(
+                              initialData: service,
+                              index: index,
+                            ),
+                          ),
+                        );
+
+                        if (updatedService != null) {
+                          setState(() {
+                            myServices[index] = updatedService;
+                          });
+                        }
+                      },
+                    ),
+                    onTap: () {
+                      // Navegar al detalle del servicio propio
+                    },
+                  ),
+                );
+              },
             ),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
@@ -35,7 +100,17 @@ class ProfessionalHomeScreen extends StatelessWidget {
           if (index == 1) {
             Navigator.pushNamed(context, '/professional_dashboard');
           } else if (index == 2) {
-            Navigator.pushNamed(context, '/professional_profile'); 
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfessionalProfilePage(
+                  userInfo: widget.user.map((key, value) => MapEntry(key, value.toString())),
+                  services: myServices,
+                ),
+              ),
+            );
+          } else {
+            Navigator.pushNamed(context, '/professional_home');
           }
         },
         items: const [
