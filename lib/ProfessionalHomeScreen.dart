@@ -69,7 +69,7 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
           if (index == 1) {
             Navigator.pushNamed(context, '/professional_dashboard');
           } else if (index == 2) {
-            Navigator.pushNamed(context, '/professional_profile');
+            Navigator.pushNamed(context, '/professional_profile'); // Asegúrate de tener esta ruta
           }
         },
         items: const [

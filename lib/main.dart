@@ -12,6 +12,7 @@ import 'ProfessionalHomeScreen.dart';
 import 'ProfessionalDashboardScreen.dart';
 import 'db_helper.dart';
 import 'AddServicePage.dart';
+import 'ProfessionalProfilePage.dart';
 
 void main() async {
   // Ensure Flutter is initialized before using platform channels
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'KidConnect',
+      debugShowCheckedModeBanner: false, 
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -92,6 +94,7 @@ class MyApp extends StatelessWidget {
         '/professional_home': (context) => const ProfessionalHomeScreen(), // Debes crear esta pantalla
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
         '/add_service': (context) => const AddServicePage(),
+        '/professional_profile': (context) => const ProfessionalProfilePage(),
       },
     );
   }
