@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'db_helper.dart';
+import 'databases/database_helper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       
       try {
-        final user = await DBHelper.findUser(_emailController.text.trim());
+        final user = await DatabaseHelper().findUser(_emailController.text.trim());
         
         if (user != null && user['password'] == _passwordController.text) {
           // Login successful
