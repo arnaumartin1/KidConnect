@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AddServicePage extends StatefulWidget {
-  const AddServicePage({super.key});
+  // const AddServicePage({super.key});
+  final Map<String, String>? initialData;
+  final int? index;
+
+  const AddServicePage({super.key, this.initialData, this.index});
 
   @override
   State<AddServicePage> createState() => _AddServicePageState();
@@ -20,6 +24,17 @@ class _AddServicePageState extends State<AddServicePage> {
     _descripcionController.dispose();
     _precioController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialData != null) {
+      _tituloController.text = widget.initialData!['title'] ?? '';
+      _descripcionController.text = widget.initialData!['description'] ?? '';
+      _precioController.text = widget.initialData!['price']?.replaceAll('€/h', '') ?? '';
+      // NOTA: pots afegir també suport per editar disponibilitat si ho tens implementat
+    }
   }
 
   @override
@@ -196,27 +211,23 @@ class _AddServicePageState extends State<AddServicePage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          // Aquí puedes guardar el anuncio en la base de datos o backend
-                          final anuncio = {
-                            'titulo': _tituloController.text,
-                            'descripcion': _descripcionController.text,
-                            'disponibilidad': _disponibilidad,
-                            'precio': double.parse(_precioController.text),
+                          final updatedService = {
+                            'title': _tituloController.text,
+                            'description': _descripcionController.text,
+                            'city': widget.initialData?['city'] ?? 'Ciudad no definida',
+                            'price': '${_precioController.text}€/h',
                           };
-                          // Puedes hacer algo con 'anuncio' aquí
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Servicio añadido correctamente')),
-                          );
-                          Navigator.pop(context);
+
+                          Navigator.pop(context, updatedService);
                         }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 34, 178, 189),
                         padding: const EdgeInsets.symmetric(vertical: 15),
                       ),
-                      child: const Text(
-                        'Continuar',
-                        style: TextStyle(color: Colors.white),
+                      child: Text(
+                        widget.initialData != null ? 'Guardar Cambios' : 'Continuar',
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

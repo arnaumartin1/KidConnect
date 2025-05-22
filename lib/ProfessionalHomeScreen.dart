@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'AddServicePage.dart';
 
 class ProfessionalHomeScreen extends StatefulWidget {
   const ProfessionalHomeScreen({super.key});
@@ -43,8 +44,22 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
                     subtitle: Text('${service['description']} • ${service['city']} • ${service['price']}'),
                     trailing: IconButton(
                       icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        // Navegar a la edición del servicio
+                      onPressed: () async {
+                        final updatedService = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddServicePage(
+                              initialData: service,
+                              index: index,
+                            ),
+                          ),
+                        );
+
+                        if (updatedService != null) {
+                          setState(() {
+                            myServices[index] = updatedService;
+                          });
+                        }
                       },
                     ),
                     onTap: () {

@@ -16,6 +16,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController birthDateController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  DateTime? selectedBirthDate;
+
 
   @override
   void dispose() {
@@ -43,6 +45,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     Navigator.pushNamed(context, '/user_type_selection');
   }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2010, 1),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      // locale: const Locale('es', ''),
+    );
+
+
+    if (picked != null && picked != selectedBirthDate) {
+      setState(() {
+        selectedBirthDate = picked;
+        birthDateController.text = '${picked.day}/${picked.month}/${picked.year}';
+      });
+    }
+  }
+
 
   void debugUsers() async {
     List<User> users = await DatabaseHelper().getUsers();
@@ -89,12 +110,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(height: 20),
             TextFormField(
               controller: birthDateController,
+              readOnly: true,
               decoration: const InputDecoration(
-                labelText: 'DD/MM/YYYY',
+                labelText: 'Fecha de nacimiento',
                 border: OutlineInputBorder(),
-                hintText: 'Fecha de nacimiento',
+                hintText: 'DD/MM/YYYY',
               ),
+              onTap: () => _selectDate(context),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, selecciona tu fecha de nacimiento';
+                }
+                return null;
+              },
             ),
+
             const SizedBox(height: 20),
             TextFormField(
               controller: emailController,
