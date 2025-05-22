@@ -1,132 +1,106 @@
 import 'package:flutter/material.dart';
-import 'models/user_model.dart';
-import 'databases/database_helper.dart';
+import '../widgets/styledcontainer.dart';
 
-
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
-
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController surnameController = TextEditingController();
-  final TextEditingController birthDateController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Alliberem memòria
-    nameController.dispose();
-    surnameController.dispose();
-    birthDateController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  // Funció per registrar
-  void _registerUser() async {
-    final user = User(
-      name: nameController.text.trim(),
-      surname: surnameController.text.trim(),
-      birthDate: birthDateController.text.trim(),
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
-      userType: '', // De moment buit, s'omplirà després
-    );
-
-    await DatabaseHelper().insertUser(user);
-
-    Navigator.pushNamed(context, '/user_type_selection');
-  }
-
-  void debugUsers() async {
-    List<User> users = await DatabaseHelper().getUsers();
-    for (var user in users) {
-      print('${user.name} - ${user.email} - ${user.userType}');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('KidConnect'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      backgroundColor: const Color(0xFFEFF3F3),
+      body: StyledContainer(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Bienvenido a KidConnect',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color(0xFF6B8C89),
+                      side: const BorderSide(color: Color(0xFF6B8C89)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text('Iniciar Sesion'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6B8C89),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text('Registrarme'),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 30),
-            TextFormField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Nombre',
-                border: OutlineInputBorder(),
+            const SizedBox(height: 24),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Crear cuenta',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6B8C89),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: surnameController,
-              decoration: const InputDecoration(
-                labelText: 'Apellidos',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: birthDateController,
-              decoration: const InputDecoration(
-                labelText: 'DD/MM/YYYY',
-                border: OutlineInputBorder(),
-                hintText: 'Fecha de nacimiento',
-              ),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: emailController,
-              decoration: const InputDecoration(
+            const SizedBox(height: 24),
+            TextField(
+              decoration: InputDecoration(
                 labelText: 'Correo electrónico',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: passwordController,
+            const SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Nombre completo',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
               obscureText: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Contraseña',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
             ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: _registerUser,
-              child: const Text('Registrarme'),
-            ),
-            const SizedBox(height: 20),
-            OutlinedButton(
-              onPressed: () {
-                // Handle Google sign in
-              },
-              child: const Text('Continuar con Google'),
-            ),
-            ElevatedButton(
-              onPressed: debugUsers,
-              child: const Text('Mostrar usuaris (debug)'),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF6B8C89),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: const Text(
+                  'Registrarme',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
           ],
         ),
