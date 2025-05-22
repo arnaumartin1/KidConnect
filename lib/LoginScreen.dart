@@ -1,121 +1,112 @@
 import 'package:flutter/material.dart';
-import 'db_helper.dart';
+import '/widgets/StyledContainer.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _isLoading = false;
-  
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-  
-  Future<void> _login() async {
-    // Acceso directo temporal como tutor (panel principal)
-    if (!mounted) return;
-    Navigator.pushReplacementNamed(context, '/parent_dashboard');
-
-    // --- Lógica de validación para implementar después ---
-    /*
-    // ...código comentado de validación...
-    */
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('KidConnect'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-            const Text(
-              'Bienvenido a KidConnect',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+      backgroundColor: const Color(0xFFEFF3F3),
+      body: StyledContainer(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6B8C89),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text('Iniciar Sesion'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/register');
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color(0xFF6B8C89),
+                      side: const BorderSide(color: Color(0xFF6B8C89)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text('Registrarme'),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 30),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
+            const SizedBox(height: 24),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Bienvenido a KidConnect',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6B8C89),
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            TextField(
+              decoration: InputDecoration(
                 labelText: 'Correo electrónico',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingresa tu correo electrónico';
-                }
-                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                  return 'Por favor, ingresa un correo electrónico válido';
-                }
-                return null;
-              },
             ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: _passwordController,
+            const SizedBox(height: 16),
+            TextField(
               obscureText: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Contraseña',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingresa tu contraseña';
-                }
-                return null;
-              },
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Align(
-              alignment: Alignment.centerRight,
+              alignment: Alignment.centerLeft,
               child: TextButton(
-                onPressed: () {
-                  // Handle forgot password
-                },
-                child: const Text('He olvidado mi contraseña'),
+                onPressed: () {},
+                child: const Text(
+                  'He olvidado mi contraseña',
+                  style: TextStyle(
+                    color: Color(0xFF6B8C89),
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _login,
-              child: _isLoading 
-                ? const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(color: Colors.white),
-                  )
-                : const Text('Iniciar Sesión'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/register');
-              },
-              child: const Text('Registrarme'),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF6B8C89),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: const Text(
+                  'Iniciar Sesion',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
           ],
-          ),
         ),
       ),
     );
