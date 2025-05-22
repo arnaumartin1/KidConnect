@@ -10,11 +10,8 @@ import '/registerscreen.dart';
 import '/usertypeselectionscreen.dart';
 import '/parenthomescreen.dart';
 import '/parentdashboardscreen.dart';
-import '/professionalhomescreen.dart';
+import '/ProfessionalHomeScreen.dart';
 import '/professionaldashboardscreen.dart';
-import '/addservicepage.dart';
-
-import 'ProfessionalProfilePage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +68,6 @@ class MyApp extends StatelessWidget {
         '/user_type_selection': (context) => const UserTypeSelectionScreen(),
         '/parent_home': (context) => const ParentHomeScreen(),
         '/parent_dashboard': (context) => const ParentDashboardScreen(),
-        '/professional_home': (context) => const ProfessionalHomeScreen(),
         '/professional_home': (context) {
           final args = ModalRoute.of(context)!.settings.arguments;
           final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
@@ -79,7 +75,12 @@ class MyApp extends StatelessWidget {
         }, // Debes crear esta pantalla
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
         '/add_service': (context) => const AddServicePage(),
-        '/professional_profile': (context) => const ProfessionalProfilePage(),
+        '/professional_profile': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>? ?? {};
+          final userInfo = args['userInfo'];
+          final services = args['services'];
+          return ProfessionalProfilePage(userInfo: userInfo, services: services);
+        },
       },
     );
   }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project1/UserTypeSelectionScreen.dart';
-import 'db_helper.dart';
 import 'databases/database_helper.dart';
 import 'ProfessionalHomeScreen.dart';
 import '/widgets/StyledContainer.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
@@ -49,20 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
               builder: (context) => UserTypeSelectionScreen(),
             ),
           );
-          // // Navegar segons el tipus d'usuari
-          // if (user['userType'] == 'professional') {
-          //   
-          //   );
-          // } else if (user['userType'] == 'parent') {
-          //   Navigator.pushReplacementNamed(context, '/parent_home');
-          // } else {
-          //   ScaffoldMessenger.of(context).showSnackBar(
-          //     const SnackBar(
-          //       content: Text('Tipo de usuario desconocido'),
-          //       backgroundColor: Colors.orange,
-          //     ),
-          //   );
-          // }
         } else {
           if (!mounted) return;
 
@@ -146,53 +131,54 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: 24),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Correo electrónico',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Contraseña',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'He olvidado mi contraseña',
-                  style: TextStyle(
-                    color: Color(0xFF6B8C89),
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Correo electrónico',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Introduce tu correo';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF6B8C89),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Contraseña',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Introduce tu contraseña';
+                      }
+                      return null;
+                    },
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-                child: const Text(
-                  'Iniciar Sesion',
-                  style: TextStyle(fontSize: 18),
-                ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _isLoading ? null : _login,
+                      child: _isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : const Text('Iniciar Sesion'),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
