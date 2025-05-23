@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import '/widgets/styledcontainer.dart';
+import 'ParentDashboardScreen.dart';
 
-class UserTypeSelectionScreen extends StatelessWidget {
+class UserTypeSelectionScreen extends StatefulWidget {
   const UserTypeSelectionScreen({super.key});
 
+  @override
+  State<UserTypeSelectionScreen> createState() => _UserTypeSelectionScreenState();
+}
+
+class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +31,10 @@ class UserTypeSelectionScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/parent_home');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ParentDashboardScreen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF6B8C89),
