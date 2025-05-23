@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project1/UserTypeSelectionScreen.dart';
-import 'db_helper.dart';
 import 'databases/database_helper.dart';
 import 'ProfessionalHomeScreen.dart';
 
@@ -48,20 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
               builder: (context) => UserTypeSelectionScreen(),
             ),
           );
-          // // Navegar segons el tipus d'usuari
-          // if (user['userType'] == 'professional') {
-          //   
-          //   );
-          // } else if (user['userType'] == 'parent') {
-          //   Navigator.pushReplacementNamed(context, '/parent_home');
-          // } else {
-          //   ScaffoldMessenger.of(context).showSnackBar(
-          //     const SnackBar(
-          //       content: Text('Tipo de usuario desconocido'),
-          //       backgroundColor: Colors.orange,
-          //     ),
-          //   );
-          // }
         } else {
           if (!mounted) return;
 
