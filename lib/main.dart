@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/ParentMainPage.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'db_helper.dart';
 
@@ -12,6 +13,9 @@ import '/parenthomescreen.dart';
 import '/parentdashboardscreen.dart';
 import '/ProfessionalHomeScreen.dart';
 import '/professionaldashboardscreen.dart';
+import 'BookingPage.dart';
+import 'Service.dart'; 
+import 'MessagesScreen.dart'; 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,6 +72,7 @@ class MyApp extends StatelessWidget {
         '/user_type_selection': (context) => const UserTypeSelectionScreen(),
         '/parent_home': (context) => const ParentHomeScreen(),
         '/parent_dashboard': (context) => const ParentDashboardScreen(),
+        '/parent_main': (context) => const ParentMainPage(),
         '/professional_home': (context) {
           final args = ModalRoute.of(context)!.settings.arguments;
           final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
@@ -81,6 +86,12 @@ class MyApp extends StatelessWidget {
           final services = args['services'];
           return ProfessionalProfilePage(userInfo: userInfo, services: services);
         },
+        '/book_service': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          final service = Service.fromMap(args);
+          return BookingPage(service: service);
+        },
+        '/messages': (context) => MessagesScreen(), 
       },
     );
   }
