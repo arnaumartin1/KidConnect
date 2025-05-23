@@ -1,18 +1,68 @@
 import 'package:flutter/material.dart';
 import 'Service.dart';
-import 'Booking.dart';
-import 'ChatPage.dart';
 import 'BookingPage.dart';
+import 'ChatPage.dart';
 
-class ServiceDetailPage extends StatelessWidget {
+// Simulación de favoritos global
+List<String> favoriteServiceIds = [];
+
+class ServiceDetailPage extends StatefulWidget {
   final Service service;
 
   const ServiceDetailPage({super.key, required this.service});
 
   @override
+  State<ServiceDetailPage> createState() => _ServiceDetailPageState();
+}
+
+class _ServiceDetailPageState extends State<ServiceDetailPage> {
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = favoriteServiceIds.contains(widget.service.id);
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+      if (isFavorite) {
+        favoriteServiceIds.add(widget.service.id);
+      } else {
+        favoriteServiceIds.remove(widget.service.id);
+      }
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          isFavorite
+              ? 'Añadido a favoritos'
+              : 'Eliminado de favoritos',
+        ),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final service = widget.service;
+
     return Scaffold(
-      appBar: AppBar(title: Text(service.title)),
+      appBar: AppBar(
+        title: Text(service.title),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? Colors.red : Colors.grey,
+            ),
+            onPressed: _toggleFavorite,
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -35,7 +85,6 @@ class ServiceDetailPage extends StatelessWidget {
               },
               child: const Text('Reservar'),
             ),
-
             const SizedBox(height: 10),
             OutlinedButton(
               onPressed: () {
@@ -57,50 +106,3 @@ class ServiceDetailPage extends StatelessWidget {
     );
   }
 }
-
-
-// Mock data for bookings
-final List<Booking> mockBookings = [
-  Booking(
-    serviceTitle: 'Clases de inglés',
-    providerName: 'Ana López',
-    date: DateTime.now().subtract(const Duration(days: 2)),
-    price: 15.0,
-  ),
-  Booking(
-    serviceTitle: 'Niñera bilingüe',
-    providerName: 'María García',
-    date: DateTime.now().subtract(const Duration(days: 7)),
-    price: 12.0,
-  ),
-  Booking(
-    serviceTitle: 'Clases de matemáticas',
-    providerName: 'Luis Fernández',
-    date: DateTime.now().subtract(const Duration(days: 10)),
-    price: 20.0,
-  ),
-  Booking(
-    serviceTitle: 'Cuidado de niños',
-    providerName: 'Laura Martínez',
-    date: DateTime.now().subtract(const Duration(days: 15)),
-    price: 40.0,
-  ),
-  Booking(
-    serviceTitle: 'Clases de música',
-    providerName: 'Carlos Sánchez',
-    date: DateTime.now().subtract(const Duration(days: 20)),
-    price: 50.0,
-  ),
-  Booking(
-    serviceTitle: 'Clases de programación',
-    providerName: 'María García',
-    date: DateTime.now().subtract(const Duration(days: 25)),
-    price: 30.0,
-  ),
-  Booking(
-    serviceTitle: 'Cuidado de niños',
-    providerName: 'Ana Pérez',
-    date: DateTime.now().subtract(const Duration(days: 30)),
-    price: 25.0,
-  ),
-];
