@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
         '/professional_messages': (context) {
           final args = ModalRoute.of(context)!.settings.arguments;
           final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
-          return ProfessionalHomeScreen(user: user);
+          return ProfessionalMessageScreen(user: user);
         },
         },
     );

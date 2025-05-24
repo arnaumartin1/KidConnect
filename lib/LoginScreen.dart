@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project1/UserTypeSelectionScreen.dart';
 import 'databases/database_helper.dart';
-import 'ProfessionalHomeScreen.dart';
 import '/widgets/StyledContainer.dart';
 
 class LoginScreen extends StatefulWidget {
