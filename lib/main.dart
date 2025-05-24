@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project1/ParentMainPage.dart';
+import 'package:project1/ProfessionalMessagesScreen.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'db_helper.dart';
 
@@ -92,7 +93,12 @@ class MyApp extends StatelessWidget {
           return BookingPage(service: service);
         },
         '/messages': (context) => MessagesScreen(), 
-      },
+        '/professional_messages': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments;
+          final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
+          return ProfessionalHomeScreen(user: user);
+        },
+        },
     );
   }
 }

@@ -12,6 +12,7 @@ class ProfessionalHomeScreen extends StatefulWidget {
 }
 
 class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
+  int _selectedIndex = 0;
   // Simulación de servicios del profesional
   final List<Map<String, String>> myServices = [
     {
@@ -89,19 +90,6 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
                     },
                   ),
           ),
-          SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/professional_dashboard');
-                },
-                child: Text('Ir al Panel'),
-              ),
-            ),
-          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -112,12 +100,16 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: _selectedIndex,
         selectedItemColor: Color.fromARGB(255, 34, 178, 189),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
+          if (_selectedIndex == index) return;
+          setState(() {
+            _selectedIndex = index;
+          });
           if (index == 1) {
-            Navigator.pushNamed(context, '/professional_dashboard');
+            Navigator.pushNamed(context, '/professional_messages');
           } else if (index == 2) {
             Navigator.push(
               context,
@@ -128,8 +120,8 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
                 ),
               ),
             );
-          } else {
-            Navigator.pushNamed(context, '/professional_home');
+          } else if (index == 0) {
+            // Ya estamos en la pantalla de servicios, no hace falta navegar
           }
         },
         items: [

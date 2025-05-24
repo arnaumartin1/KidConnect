@@ -86,6 +86,25 @@ class ProfessionalProfilePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 2, // Perfil está seleccionado
+        selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushReplacementNamed(context, '/professional_home');
+          } else if (index == 1) {
+            Navigator.pushReplacementNamed(context, '/professional_messages');
+          } else if (index == 2) {
+            // Ya estás en la página de perfil profesional
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project1/ProfessionalDashboardScreen.dart';
 import 'Message.dart';
-import 'ParentDashboardScreen.dart';
-import 'ParentProfilePage.dart';
+import 'ProfessionalProfilePage.dart';
 
 // Chat model
 class Chat {
@@ -28,26 +28,44 @@ class Chat {
   }
 }
 
-class MessagesScreen extends StatefulWidget {
+class ProfessionalMessageScreen extends StatefulWidget {
+  final Map<String, dynamic> user;
+  const ProfessionalMessageScreen({Key? key, required this.user}) : super(key: key);
+
   @override
-  _MessagesScreenState createState() => _MessagesScreenState();
+  _ProfessionalMessagesScreenState createState() => _ProfessionalMessagesScreenState();
 }
 
-class _MessagesScreenState extends State<MessagesScreen> {
+class _ProfessionalMessagesScreenState extends State<ProfessionalMessageScreen> {
+  final List<Map<String, String>> myServices = [
+    {
+      'title': 'Clases de inglés para niños',
+      'description': 'Aprende inglés de forma divertida',
+      'city': 'Madrid',
+      'price': '15€/h',
+    },
+    {
+      'title': 'Taller de robótica',
+      'description': 'Robótica educativa para todas las edades',
+      'city': 'Barcelona',
+      'price': '20€/h',
+    }
+  ];
+
   List<Chat> chats = [
     Chat(
       id: '1',
-      name: 'Provider Alice',
+      name: 'Parent Peter',
       messages: [
-        Message(sender: 'provider', text: 'Hello!', timestamp: DateTime.now().subtract(Duration(minutes: 5))),
-        Message(sender: 'parent', text: 'Hi Alice!', timestamp: DateTime.now().subtract(Duration(minutes: 4))),
+        Message(sender: 'parent', text: 'Hello!', timestamp: DateTime.now().subtract(Duration(minutes: 5))),
+        Message(sender: 'provider', text: 'Hi Peter! What do you need?', timestamp: DateTime.now().subtract(Duration(minutes: 4))),
       ],
     ),
     Chat(
       id: '2',
-      name: 'Provider Bob',
+      name: 'Parent Mary',
       messages: [
-        Message(sender: 'provider', text: 'How can I help?', timestamp: DateTime.now().subtract(Duration(minutes: 10))),
+        Message(sender: 'parent', text: 'I need your service!', timestamp: DateTime.now().subtract(Duration(minutes: 10))),
       ],
     ),
   ];
@@ -85,27 +103,23 @@ class _MessagesScreenState extends State<MessagesScreen> {
         selectedItemColor: Color.fromARGB(255, 34, 178, 189),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
-          if (index == 0) {
-            Navigator.pushAndRemoveUntil(
+          if (index == 0 && 1 != 0) {
+            Navigator.pushReplacementNamed(context, '/professional_home');
+          } else if (index == 1 && 1 != 1) {
+            Navigator.pushReplacementNamed(context, '/professional_messages');
+          } else if (index == 2 && 1 != 2) {
+            Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ParentDashboardScreen()),
-              (route) => false,
-            );
-          } else if (index == 1) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MessagesScreen()),
-              (route) => false,
-            );
-          } else if (index == 2) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => ParentProfilePage()),
-              (route) => false,
+              MaterialPageRoute(
+                builder: (context) => ProfessionalProfilePage(
+                  userInfo: widget.user.map((key, value) => MapEntry(key, value.toString())),
+                  services: myServices,
+                ),
+              ),
             );
           }
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
@@ -139,7 +153,7 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {
       messages.add(
         Message(
-          sender: 'parent',
+          sender: 'provider', // El profesional envía el mensaje
           text: text,
           timestamp: DateTime.now(),
         ),
@@ -165,7 +179,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
                   final msg = messages[messages.length - 1 - index];
-                  final isMe = msg.sender == 'parent';
+                  final isMe = msg.sender == 'provider';
                   return Align(
                     alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
                     child: Container(

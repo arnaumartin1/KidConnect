@@ -52,7 +52,7 @@ class ParentDashboardScreen extends StatelessWidget {
         onTap: (index) {
           if (index == 0) {
             // Ir al dashboard (pantalla actual)
-            Navigator.pushReplacementNamed(context, '/parent_home');
+            Navigator.pushReplacementNamed(context, '/parent_dashboard');
           } else if (index == 1) {
             Navigator.pushReplacementNamed(context, '/messages');
           } else if (index == 2) {
