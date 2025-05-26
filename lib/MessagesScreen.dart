@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/HistoryPage.dart';
 import 'Message.dart';
 import 'ParentDashboardScreen.dart';
 import 'ParentProfilePage.dart';
@@ -98,6 +99,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
               (route) => false,
             );
           } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HistoryPage()),
+            );
+          } else if (index == 3) {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => ParentProfilePage()),
@@ -108,6 +114,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'), // Ahora es el tercero
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),
