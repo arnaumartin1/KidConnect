@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'Service.dart';
+import 'Service.dart' as service_lib;
 import 'Booking.dart';
 import 'ParentDashboardScreen.dart';
 
@@ -51,7 +51,7 @@ final List<Booking> mockBookings = [
 ];
 
 class BookingPage extends StatefulWidget {
-  final Service service;
+  final service_lib.Service service;
 
   const BookingPage({super.key, required this.service});
 

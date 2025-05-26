@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project1/ParentMainPage.dart';
+import 'package:project1/ProfessionalMessagesScreen.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'db_helper.dart';
 
@@ -10,9 +12,13 @@ import '/registerscreen.dart';
 import '/usertypeselectionscreen.dart';
 import '/parenthomescreen.dart';
 import '/parentdashboardscreen.dart';
-import '/professionalhomescreen.dart';
+import '/ProfessionalHomeScreen.dart';
 import '/professionaldashboardscreen.dart';
 
+
+import 'BookingPage.dart';
+import 'Service.dart'; 
+import 'MessagesScreen.dart'; 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,11 +75,32 @@ class MyApp extends StatelessWidget {
         '/user_type_selection': (context) => const UserTypeSelectionScreen(),
         '/parent_home': (context) => const ParentHomeScreen(),
         '/parent_dashboard': (context) => const ParentDashboardScreen(),
-        '/professional_home': (context) => const ProfessionalHomeScreen(),
+        '/parent_main': (context) => const ParentMainPage(),
+        '/professional_home': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments;
+          final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
+          return ProfessionalHomeScreen(user: user);
+        }, // Debes crear esta pantalla
         '/professional_dashboard': (context) => const ProfessionalDashboardScreen(),
         '/add_service': (context) => const AddServicePage(),
-        '/professional_profile': (context) => const ProfessionalProfilePage(),
-      },
+        '/professional_profile': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>? ?? {};
+          final userInfo = args['userInfo'];
+          final services = args['services'];
+          return ProfessionalProfilePage(userInfo: userInfo, services: services);
+        },
+        '/book_service': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          final service = Service.fromMap(args);
+          return BookingPage(service: service);
+        },
+        '/messages': (context) => MessagesScreen(), 
+        '/professional_messages': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments;
+          final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
+          return ProfessionalMessageScreen(user: user);
+        },
+        },
     );
   }
 }
