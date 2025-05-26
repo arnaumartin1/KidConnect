@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/styledcontainer.dart';
 
 class ParentProfilePage extends StatelessWidget {
   const ParentProfilePage({super.key});
@@ -6,46 +7,83 @@ class ParentProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mi Perfil')),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const CircleAvatar(
-              radius: 40,
-              child: Icon(Icons.person, size: 50),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Nombre',
-                border: OutlineInputBorder(),
+      backgroundColor: const Color(0xFFEFF3F3),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Mi Perfil',
+          style: TextStyle(
+            color: Color(0xFF6B8C89),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
+        centerTitle: false,
+      ),
+      body: Center(
+        child: StyledContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircleAvatar(
+                radius: 40,
+                backgroundColor: Color(0xFF6B8C89),
+                child: Icon(Icons.person, size: 50, color: Colors.white),
               ),
-              initialValue: 'Nombre Ejemplo',
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Ciudad',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 24),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                initialValue: 'Nombre Ejemplo',
               ),
-              initialValue: 'Madrid',
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Perfil actualizado')),
-                );
-              },
-              child: const Text('Guardar cambios'),
-            ),
-          ],
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Ciudad',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                initialValue: 'Madrid',
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Perfil actualizado')),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6B8C89),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  child: const Text(
+                    'Guardar cambios',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2,
-        selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
+        selectedItemColor: const Color(0xFF6B8C89),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
           if (index == 0) {

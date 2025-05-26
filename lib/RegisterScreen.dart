@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models/user_model.dart';
 import 'databases/database_helper.dart';
+import 'widgets/styledcontainer.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -71,113 +72,220 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('KidConnect'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
+      backgroundColor: const Color(0xFFEFF3F3),
+      body: StyledContainer(
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Bienvenido a KidConnect',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              // Tabs de login/registro
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F5F5),
+                  borderRadius: BorderRadius.circular(24),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 30),
-              TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                  border: OutlineInputBorder(),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/login');
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: const Color(0xFF6B8C89),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text('Iniciar Sesion'),
+                      ),
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF6B8C89),
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text('Registrarme'),
+                      ),
+                    ),
+                  ],
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Por favor, ingresa tu nombre';
-                  }
-                  return null;
-                },
               ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: surnameController,
-                decoration: const InputDecoration(
-                  labelText: 'Apellidos',
-                  border: OutlineInputBorder(),
+              const SizedBox(height: 24),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Bienvenido a KidConnect',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF6B8C89),
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Por favor, ingresa tus apellidos';
-                  }
-                  return null;
-                },
               ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: birthDateController,
-                readOnly: true,
-                decoration: const InputDecoration(
-                  labelText: 'Fecha de nacimiento',
-                  border: OutlineInputBorder(),
-                  hintText: 'DD/MM/YYYY',
+              const SizedBox(height: 24),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        labelText: 'Nombre',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Por favor, ingresa tu nombre';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: surnameController,
+                      decoration: InputDecoration(
+                        labelText: 'Apellidos',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Por favor, ingresa tus apellidos';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: birthDateController,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        labelText: 'Fecha de nacimiento',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        hintText: 'DD/MM/YYYY',
+                        filled: true,
+                        fillColor: Colors.white,
+                        suffixIcon: Icon(Icons.calendar_today, color: Color(0xFF6B8C89)),
+                      ),
+                      onTap: () => _selectDate(context),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, selecciona tu fecha de nacimiento';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Correo electrónico',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Por favor, ingresa tu correo electrónico';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Contraseña',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Por favor, ingresa tu contraseña';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _registerUser,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF6B8C89),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text(
+                          'Registrarme',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Divider(),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          // Handle Google sign in
+                        },
+                        icon: Icon(Icons.g_mobiledata, color: Color(0xFF6B8C89)),
+                        label: const Text(
+                          'Continuar con Google',
+                          style: TextStyle(color: Color(0xFF6B8C89)),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xFF6B8C89)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    // Botón de debug opcional, puedes quitarlo en producción
+                    ElevatedButton(
+                      onPressed: debugUsers,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[300],
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: const Text('Mostrar usuarios (debug)'),
+                    ),
+                  ],
                 ),
-                onTap: () => _selectDate(context),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, selecciona tu fecha de nacimiento';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Correo electrónico',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Por favor, ingresa tu correo electrónico';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Contraseña',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Por favor, ingresa tu contraseña';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: _registerUser,
-                child: const Text('Registrarme'),
-              ),
-              const SizedBox(height: 20),
-              OutlinedButton(
-                onPressed: () {
-                  // Handle Google sign in
-                },
-                child: const Text('Continuar con Google'),
-              ),
-              ElevatedButton(
-                onPressed: debugUsers,
-                child: const Text('Mostrar usuaris (debug)'),
               ),
             ],
           ),
