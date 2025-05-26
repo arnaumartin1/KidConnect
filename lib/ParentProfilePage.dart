@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/HistoryPage.dart';
 import 'widgets/styledcontainer.dart';
 
 class ParentProfilePage extends StatelessWidget {
@@ -90,7 +91,12 @@ class ParentProfilePage extends StatelessWidget {
             Navigator.pushReplacementNamed(context, '/parent_dashboard');
           } else if (index == 1) {
             Navigator.pushReplacementNamed(context, '/messages');
-          } else if (index == 2) {
+            } else if (index == 2) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => HistoryPage()),
+  );
+          } else if (index == 3) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -102,6 +108,7 @@ class ParentProfilePage extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: ''), // Solo icono, sin texto
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),
