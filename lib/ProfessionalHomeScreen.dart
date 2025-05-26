@@ -20,6 +20,19 @@ class ProfessionalHomeScreen extends StatelessWidget {
                 color: Color(0xFF6B8C89),
               ),
             ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/professional_dashboard');
+                },
+                child: const Text('Ir al Panel'),
+              ),
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         label: const Text('Añadir servicio'),
@@ -43,18 +56,6 @@ class ProfessionalHomeScreen extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/professional_dashboard');
-                },
-                child: const Text('Ir al Panel'),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
