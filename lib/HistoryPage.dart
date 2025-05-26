@@ -55,22 +55,6 @@ class HistoryPage extends StatelessWidget {
         itemCount: mockBookings.length,
         itemBuilder: (context, index) {
           final booking = mockBookings[index];
-          final hasPassed = booking.date.isBefore(DateTime.now());
-
-          // Mostrar automáticamente la valoración si aún no fue hecha
-          if (hasPassed && !booking.isRated) {
-            Future.delayed(Duration.zero, () {
-              showDialog(
-                context: context,
-                builder: (_) => RatingDialog(
-                  booking: booking,
-                  onRated: () {
-                    booking.isRated = true;
-                  },
-                ),
-              );
-            });
-          }
 
           return ListTile(
             title: Text(booking.serviceTitle),
@@ -79,14 +63,26 @@ class HistoryPage extends StatelessWidget {
             ),
             trailing: booking.isRated
                 ? const Icon(Icons.check_circle, color: Colors.green)
-                : const Icon(Icons.star_border, color: Colors.orange),
+                : IconButton(
+                    icon: const Icon(Icons.star_border, color: Colors.orange),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => RatingDialog(
+                          booking: booking,
+                          onRated: () {
+                            booking.isRated = true;
+                          },
+                        ),
+                      );
+                    },
+                  ),
           );
         },
       ),
     );
   }
 }
-
 
 class RatingDialog extends StatefulWidget {
   final Booking booking;
