@@ -3,52 +3,7 @@ import 'package:intl/intl.dart';
 import 'Service.dart' as service_lib;
 import 'Booking.dart';
 import 'ParentDashboardScreen.dart';
-
-// Mock data for bookings
-final List<Booking> mockBookings = [
-  Booking(
-    serviceTitle: 'Clases de inglés',
-    providerName: 'Ana López',
-    date: DateTime.now().subtract(const Duration(days: 2)),
-    price: 15.0,
-  ),
-  Booking(
-    serviceTitle: 'Niñera bilingüe',
-    providerName: 'María García',
-    date: DateTime.now().subtract(const Duration(days: 7)),
-    price: 12.0,
-  ),
-  Booking(
-    serviceTitle: 'Clases de matemáticas',
-    providerName: 'Luis Fernández',
-    date: DateTime.now().subtract(const Duration(days: 10)),
-    price: 20.0,
-  ),
-  Booking(
-    serviceTitle: 'Cuidado de niños',
-    providerName: 'Laura Martínez',
-    date: DateTime.now().subtract(const Duration(days: 15)),
-    price: 40.0,
-  ),
-  Booking(
-    serviceTitle: 'Clases de música',
-    providerName: 'Carlos Sánchez',
-    date: DateTime.now().subtract(const Duration(days: 20)),
-    price: 50.0,
-  ),
-  Booking(
-    serviceTitle: 'Clases de programación',
-    providerName: 'María García',
-    date: DateTime.now().subtract(const Duration(days: 25)),
-    price: 30.0,
-  ),
-  Booking(
-    serviceTitle: 'Cuidado de niños',
-    providerName: 'Ana Pérez',
-    date: DateTime.now().subtract(const Duration(days: 30)),
-    price: 25.0,
-  ),
-];
+import 'mockbooking.dart'; // Importa la lista global
 
 class BookingPage extends StatefulWidget {
   final service_lib.Service service;
@@ -140,7 +95,7 @@ class _BookingPageState extends State<BookingPage> {
     mockBookings.add(
       Booking(
         serviceTitle: widget.service.title,
-        providerName: 'Proveedor Desconocido', // Puedes cambiarlo si tienes el nombre real
+        providerName: 'Proveedor Desconocido',
         date: dateTime,
         price: widget.service.price,
       ),

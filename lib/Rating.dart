@@ -9,3 +9,6 @@ class Rating {
     required this.comment,
   });
 }
+
+// Lista global de valoraciones
+final List<Rating> mockRatings = [];

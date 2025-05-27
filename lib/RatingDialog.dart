@@ -6,7 +6,9 @@ final List<Rating> mockRatings = [];
 
 class RatingDialog extends StatefulWidget {
   final String serviceId;
-  const RatingDialog({super.key, required this.serviceId});
+  final VoidCallback onRated;
+
+  const RatingDialog({super.key, required this.serviceId, required this.onRated});
 
   @override
   State<RatingDialog> createState() => _RatingDialogState();
@@ -51,6 +53,7 @@ class _RatingDialogState extends State<RatingDialog> {
                 comment: _commentController.text,
               ),
             );
+            widget.onRated();
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Valoración enviada')),

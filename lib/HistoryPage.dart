@@ -68,85 +68,87 @@ class HistoryPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
         centerTitle: false,
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: mockBookings.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (context, index) {
-          final booking = mockBookings[index];
-          final bool isRated = booking.isRated;
-          final Color mainColor = isRated ? const Color(0xFF6B8C89) : Colors.orange;
+      body: mockBookings.isEmpty
+          ? const Center(child: Text('No hay historial disponible.'))
+          : ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: mockBookings.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final booking = mockBookings[index];
+                final bool isRated = booking.isRated;
+                final Color mainColor = isRated ? const Color(0xFF6B8C89) : Colors.orange;
 
-          return Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
-            ),
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: mainColor,
-                  child: Icon(
-                    isRated ? Icons.check_circle : Icons.star_border,
-                    color: Colors.white,
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
                   ),
-                ),
-                title: Text(
-                  booking.serviceTitle,
-                  style: const TextStyle(
-                    color: Color(0xFF6B8C89),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Proveedor: ${booking.providerName}'),
-                    Text(
-                      'Fecha: ${booking.date.toLocal().toString().split(' ')[0]}',
-                      style: const TextStyle(fontSize: 13, color: Colors.black54),
-                    ),
-                    Text(
-                      'Precio: ${booking.price.toStringAsFixed(2)} €',
-                      style: const TextStyle(fontSize: 13, color: Colors.black54),
-                    ),
-                  ],
-                ),
-                trailing: isRated
-                    ? Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF6B8C89).withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(12),
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: mainColor,
+                        child: Icon(
+                          isRated ? Icons.check_circle : Icons.star_border,
+                          color: Colors.white,
                         ),
-                        child: const Text(
-                          'Valorado',
-                          style: TextStyle(
-                            color: Color(0xFF6B8C89),
-                            fontWeight: FontWeight.bold,
+                      ),
+                      title: Text(
+                        booking.serviceTitle,
+                        style: const TextStyle(
+                          color: Color(0xFF6B8C89),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Proveedor: ${booking.providerName}'),
+                          Text(
+                            'Fecha: ${booking.date.toLocal().toString().split(' ')[0]}',
+                            style: const TextStyle(fontSize: 13, color: Colors.black54),
                           ),
-                        ),
-                      )
-                    : IconButton(
-                        icon: const Icon(Icons.star_border, color: Colors.orange),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => RatingDialog(
-                              booking: booking,
-                              onRated: () {
-                                booking.isRated = true;
+                          Text(
+                            'Precio: ${booking.price.toStringAsFixed(2)} €',
+                            style: const TextStyle(fontSize: 13, color: Colors.black54),
+                          ),
+                        ],
+                      ),
+                      trailing: isRated
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF6B8C89).withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Text(
+                                'Valorado',
+                                style: TextStyle(
+                                  color: Color(0xFF6B8C89),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.star_border, color: Colors.orange),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => RatingDialog(
+                                    booking: booking,
+                                    onRated: () {
+                                      booking.isRated = true;
+                                    },
+                                  ),
+                                );
                               },
                             ),
-                          );
-                        },
-                      ),
-              ),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2,
         selectedItemColor: const Color.fromARGB(255, 34, 178, 189),

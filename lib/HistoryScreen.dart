@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
-import 'databases/database_helper.dart';
 import 'Booking.dart';
+import 'mockbooking.dart';
+import 'Rating.dart' as rating_lib;
+import 'RatingDialog.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -11,24 +13,8 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  List<Booking> _bookings = [];
-  bool _loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadBookings();
-  }
-
-  Future<void> _loadBookings() async {
-    // Aquí debes obtener el email del usuario logueado (ajusta según tu lógica de sesión)
-    final String userEmail = 'usuario@email.com'; // <-- cámbialo por el email real del usuario logueado
-
-    final bookings = await DatabaseHelper().getBookingsForUser(userEmail);
-    setState(() {
-      _bookings = bookings;
-      _loading = false;
-    });
+  bool isRated(String serviceId) {
+    return rating_lib.mockRatings.any((r) => r.serviceId == serviceId);
   }
 
   @override
@@ -51,47 +37,64 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
       body: Center(
         child: StyledContainer(
-          child: _loading
-              ? const CircularProgressIndicator()
-              : _bookings.isEmpty
-                  ? const Text('No hay historial disponible.')
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: _bookings.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (context, index) {
-                        final booking = _bookings[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
+          child: mockBookings.isEmpty
+              ? const Text('No hay historial disponible.')
+              : ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: mockBookings.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final booking = mockBookings[index];
+                    final rated = isRated(booking.serviceTitle);
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      elevation: 2,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: const Color(0xFF6B8C89),
+                          child: const Icon(Icons.history, color: Colors.white),
+                        ),
+                        title: Text(
+                          booking.serviceTitle,
+                          style: const TextStyle(
+                            color: Color(0xFF6B8C89),
+                            fontWeight: FontWeight.bold,
                           ),
-                          elevation: 2,
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: const Color(0xFF6B8C89),
-                              child: const Icon(Icons.history, color: Colors.white),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(booking.providerName),
+                            Text(
+                              '${booking.date.toLocal().toString().split(' ')[0]}',
+                              style: const TextStyle(fontSize: 13, color: Colors.black54),
                             ),
-                            title: Text(
-                              booking.serviceTitle,
-                              style: const TextStyle(
-                                color: Color(0xFF6B8C89),
-                                fontWeight: FontWeight.bold,
+                            Text(
+                              'Precio: ${booking.price.toStringAsFixed(2)} €',
+                              style: const TextStyle(fontSize: 13, color: Colors.black54),
+                            ),
+                          ],
+                        ),
+                        trailing: rated
+                            ? const Icon(Icons.star, color: Colors.orange)
+                            : IconButton(
+                                icon: const Icon(Icons.star_border, color: Colors.orange),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => RatingDialog(
+                                      serviceId: booking.serviceTitle,
+                                      onRated: () => setState(() {}),
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(booking.providerName),
-                                Text(
-                                  '${booking.date.toLocal().toString().split(' ')[0]}',
-                                  style: const TextStyle(fontSize: 13, color: Colors.black54),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                      ),
+                    );
+                  },
+                ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -117,16 +120,5 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ],
       ),
     );
-  }
-}
-
-class DatabaseHelper {
-  // Existing methods and properties
-
-  Future<List<Booking>> getBookingsForUser(String userEmail) async {
-    // TODO: Replace with actual database query logic
-    // This is a placeholder implementation
-    // Return an empty list or mock data for now
-    return [];
   }
 }
