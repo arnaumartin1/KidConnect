@@ -1,58 +1,73 @@
 import 'package:flutter/material.dart';
-import 'ParentDashboardScreen.dart';
-import 'MessagesScreen.dart';
-import 'ParentProfilePage.dart';
+import '../widgets/styledcontainer.dart';
+import 'databases/database_helper.dart';
+import 'Booking.dart';
 
-class HistoryScreen extends StatelessWidget {
-  final List<Map<String, dynamic>> history;
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
 
-  const HistoryScreen({Key? key, this.history = const []}) : super(key: key);
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+  List<Booking> _bookings = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBookings();
+  }
+
+  Future<void> _loadBookings() async {
+    // Aquí debes obtener el email del usuario logueado (ajusta según tu lógica de sesión)
+    final String userEmail = 'usuario@email.com'; // <-- cámbialo por el email real del usuario logueado
+
+    final bookings = await DatabaseHelper().getBookingsForUser(userEmail);
+    setState(() {
+      _bookings = bookings;
+      _loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Historial')),
-      body: history.isEmpty
-          ? const Center(child: Text('No hay historial disponible.'))
-          : ListView.builder(
-              itemCount: history.length,
-              itemBuilder: (context, index) {
-                final item = history[index];
-                return ListTile(
-                  title: Text(item['title'] ?? 'Sin título'),
-                  subtitle: Text(item['date'] ?? ''),
-                );
-              },
-            ),
+      backgroundColor: const Color(0xFFEFF3F3),
+      body: Center(
+        child: StyledContainer(
+          child: _loading
+              ? const CircularProgressIndicator()
+              : _bookings.isEmpty
+                  ? const Text('No hay historial disponible.')
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _bookings.length,
+                      itemBuilder: (context, index) {
+                        final booking = _bookings[index];
+                        return ListTile(
+                          title: Text(booking.serviceTitle),
+                          subtitle: Text(
+                              '${booking.providerName} • ${booking.date.toLocal().toString().split(' ')[0]}'),
+                        );
+                      },
+                    ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2,
-        selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
+        selectedItemColor: const Color(0xFF6B8C89),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
           if (index == 0) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => ParentDashboardScreen()),
-              (route) => false,
-            );
+            Navigator.pushReplacementNamed(context, '/parent_dashboard');
           } else if (index == 1) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MessagesScreen()),
-              (route) => false,
-            );
+            Navigator.pushReplacementNamed(context, '/messages');
           } else if (index == 2) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => HistoryScreen()),
-              (route) => false,
-            );
+            // Ya estás en historial
           } else if (index == 3) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => ParentProfilePage()),
-              (route) => false,
-            );
+            Navigator.pushReplacementNamed(context, '/parent_profile');
           }
         },
         items: const [

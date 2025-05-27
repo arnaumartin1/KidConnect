@@ -5,7 +5,7 @@ import '../widgets/styledcontainer.dart';
 
 class ProfessionalHomeScreen extends StatefulWidget {
   final Map<String, dynamic> user;
-  const ProfessionalHomeScreen({Key? key, required this.user}) : super(key: key);
+  const ProfessionalHomeScreen({super.key, required this.user});
 
   @override
   State<ProfessionalHomeScreen> createState() => _ProfessionalHomeScreenState();
@@ -34,7 +34,7 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
       appBar: AppBar(
-        title: Text('Mis Servicios'),
+        title: const Text('Mis Servicios'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,31 +42,17 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Bienvenido, Profesional',
+              'Bienvenido, ${widget.user['name'] ?? 'Profesional'}',
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF6B8C89),
               ),
             ),
-
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/professional_dashboard');
-                },
-                child: const Text('Ir al Panel'),
-              ),
-            ),
-          ],
-        ),
-
           ),
           Expanded(
             child: myServices.isEmpty
-                ? Center(child: Text('No tienes servicios publicados aún.'))
+                ? const Center(child: Text('No tienes servicios publicados aún.'))
                 : ListView.builder(
                     itemCount: myServices.length,
                     itemBuilder: (context, index) {
@@ -77,7 +63,7 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
                           title: Text(service['title']!),
                           subtitle: Text('${service['description']} • ${service['city']} • ${service['price']}'),
                           trailing: IconButton(
-                            icon: Icon(Icons.edit),
+                            icon: const Icon(Icons.edit),
                             onPressed: () async {
                               final updatedService = await Navigator.push(
                                 context,
@@ -105,18 +91,17 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
                   ),
           ),
         ],
->>>>>>> main
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: Text('Añadir servicio'),
+        icon: const Icon(Icons.add),
+        label: const Text('Añadir servicio'),
         onPressed: () {
           Navigator.pushNamed(context, '/add_service');
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 34, 178, 189),
+        selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
           if (_selectedIndex == index) return;
@@ -139,7 +124,7 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
             // Ya estamos en la pantalla de servicios, no hace falta navegar
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),

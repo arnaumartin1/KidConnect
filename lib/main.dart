@@ -14,12 +14,11 @@ import '/parenthomescreen.dart';
 import '/parentdashboardscreen.dart';
 import '/ProfessionalHomeScreen.dart';
 import '/professionaldashboardscreen.dart';
-
-
 import 'BookingPage.dart';
 import 'Service.dart'; 
 import 'MessagesScreen.dart'; 
-
+import 'HistoryScreen.dart';
+import 'ParentProfilePage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
@@ -100,7 +99,9 @@ class MyApp extends StatelessWidget {
           final user = args is Map<String, dynamic> ? args : <String, dynamic>{};
           return ProfessionalMessageScreen(user: user);
         },
-        },
+        '/history': (context) => const HistoryScreen(),
+        '/parent_profile': (context) => const ParentProfilePage(),
+      },
     );
   }
 }

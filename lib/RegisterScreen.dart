@@ -18,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   DateTime? selectedBirthDate;
+  String selectedUserType = 'parent'; // Valor por defecto
 
   @override
   void dispose() {
@@ -37,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         birthDate: birthDateController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
-        userType: '',
+        userType: selectedUserType, // Debe ser 'parent' o 'professional'
       );
 
       await DatabaseHelper().insertUser(user);

@@ -41,12 +41,17 @@ class _LoginScreenState extends State<LoginScreen> {
               backgroundColor: Colors.green,
             ),
           );
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => UserTypeSelectionScreen(),
-            ),
-          );
+          if (user['userType'] == 'parent') {
+            Navigator.pushReplacementNamed(context, '/parent_dashboard');
+          } else if (user['userType'] == 'professional') {
+            Navigator.pushReplacementNamed(context, '/professional_dashboard');
+          } else {
+            // Si no tiene tipo, puedes mandarlo a seleccionar tipo
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => UserTypeSelectionScreen()),
+            );
+          }
         } else {
           if (!mounted) return;
 

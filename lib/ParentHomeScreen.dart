@@ -9,20 +9,13 @@ class ParentHomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
       appBar: AppBar(
+        title: const Text('Buscar servicios'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.menu, color: Color(0xFF6B8C89)),
-          onPressed: () {},
-        ),
-        title: Text(
-          'KidConnect',
-          style: TextStyle(
-            color: Color(0xFF6B8C89),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
