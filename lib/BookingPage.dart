@@ -129,32 +129,31 @@ class _BookingPageState extends State<BookingPage> {
   }
 
   void _confirmBooking() {
-  final dateTime = DateTime(
-    _selectedDate!.year,
-    _selectedDate!.month,
-    _selectedDate!.day,
-    _selectedTime!.hour,
-    _selectedTime!.minute,
-  );
+    final dateTime = DateTime(
+      _selectedDate!.year,
+      _selectedDate!.month,
+      _selectedDate!.day,
+      _selectedTime!.hour,
+      _selectedTime!.minute,
+    );
 
-  mockBookings.add(
-    Booking(
-      serviceTitle: widget.service.title,
-      providerName: 'Proveedor Desconocido',
-      date: dateTime,
-      price: widget.service.price,
-    ),
-  );
+    mockBookings.add(
+      Booking(
+        serviceTitle: widget.service.title,
+        providerName: 'Proveedor Desconocido', // Puedes cambiarlo si tienes el nombre real
+        date: dateTime,
+        price: widget.service.price,
+      ),
+    );
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Reserva confirmada')),
-  );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Reserva confirmada y guardada en historial')),
+    );
 
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (_) => const ParentDashboardScreen()),
-    (route) => false,
-  );
-}
-
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => const ParentDashboardScreen()),
+      (route) => false,
+    );
+  }
 }

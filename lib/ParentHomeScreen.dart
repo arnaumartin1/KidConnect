@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
+import 'serviceexamplespage.dart'; // Asegúrate de importar la página de ejemplos de servicio
 
 class ParentHomeScreen extends StatelessWidget {
   const ParentHomeScreen({super.key});
@@ -55,7 +56,14 @@ class ParentHomeScreen extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ServiceExamplesPage(serviceType: service == 'Todos' ? '' : service),
+                        ),
+                      );
+                    },
                     style: OutlinedButton.styleFrom(
                       backgroundColor: service == 'Todos'
                           ? Color(0xFF6B8C89)

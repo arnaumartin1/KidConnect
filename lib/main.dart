@@ -19,6 +19,7 @@ import 'Service.dart';
 import 'MessagesScreen.dart'; 
 import 'HistoryScreen.dart';
 import 'ParentProfilePage.dart';
+import 'ServiceSearchPage.dart'; // Make sure this file exists and contains ServiceSearchPage
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
@@ -104,6 +105,7 @@ class MyApp extends StatelessWidget {
         },
         '/history': (context) => const HistoryScreen(),
         '/parent_profile': (context) => const ParentProfilePage(),
+        '/search_services': (context) => const ServiceSearchPage(),
       },
     );
   }
