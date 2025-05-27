@@ -84,8 +84,11 @@ class MyApp extends StatelessWidget {
         '/add_service': (context) => const AddServicePage(),
         '/professional_profile': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>? ?? {};
-          final userInfo = args['userInfo'];
-          final services = args['services'];
+          final userInfoDynamic = args['userInfo'] ?? {};
+          final servicesDynamic = args['services'] ?? [];
+          // Conversión segura a Map<String, String> y List<Map<String, String>>
+          final userInfo = Map<String, String>.from(userInfoDynamic);
+          final services = List<Map<String, String>>.from(servicesDynamic);
           return ProfessionalProfilePage(userInfo: userInfo, services: services);
         },
         '/book_service': (context) {
