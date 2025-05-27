@@ -35,21 +35,60 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Historial de servicios',
+          style: TextStyle(
+            color: Color(0xFF6B8C89),
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
+        centerTitle: false,
+      ),
       body: Center(
         child: StyledContainer(
           child: _loading
               ? const CircularProgressIndicator()
               : _bookings.isEmpty
                   ? const Text('No hay historial disponible.')
-                  : ListView.builder(
+                  : ListView.separated(
                       shrinkWrap: true,
                       itemCount: _bookings.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 12),
                       itemBuilder: (context, index) {
                         final booking = _bookings[index];
-                        return ListTile(
-                          title: Text(booking.serviceTitle),
-                          subtitle: Text(
-                              '${booking.providerName} • ${booking.date.toLocal().toString().split(' ')[0]}'),
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          elevation: 2,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: const Color(0xFF6B8C89),
+                              child: const Icon(Icons.history, color: Colors.white),
+                            ),
+                            title: Text(
+                              booking.serviceTitle,
+                              style: const TextStyle(
+                                color: Color(0xFF6B8C89),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(booking.providerName),
+                                Text(
+                                  '${booking.date.toLocal().toString().split(' ')[0]}',
+                                  style: const TextStyle(fontSize: 13, color: Colors.black54),
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -78,5 +117,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ],
       ),
     );
+  }
+}
+
+class DatabaseHelper {
+  // Existing methods and properties
+
+  Future<List<Booking>> getBookingsForUser(String userEmail) async {
+    // TODO: Replace with actual database query logic
+    // This is a placeholder implementation
+    // Return an empty list or mock data for now
+    return [];
   }
 }

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'AddServicePage.dart';
 import 'ProfessionalProfilePage.dart';
-import '../widgets/styledcontainer.dart';
 
 class ProfessionalHomeScreen extends StatefulWidget {
-
   final Map<String, dynamic> user;
   const ProfessionalHomeScreen({super.key, required this.user});
-
 
   @override
   State<ProfessionalHomeScreen> createState() => _ProfessionalHomeScreenState();
@@ -31,41 +28,33 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
   ];
 
   Future<void> _addService() async {
-    try {
-      final newService = await Navigator.push<Map<String, String>>(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AddServicePage(),
-        ),
-      );
-      if (newService != null && mounted) {
-        setState(() {
-          myServices.add(newService);
-        });
-      }
-    } catch (e) {
-      // Manejo de error opcional
+    final newService = await Navigator.push<Map<String, String>>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddServicePage(),
+      ),
+    );
+    if (newService != null && mounted) {
+      setState(() {
+        myServices.add(newService);
+      });
     }
   }
 
   Future<void> _editService(int index) async {
-    try {
-      final updatedService = await Navigator.push<Map<String, String>>(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AddServicePage(
-            initialData: myServices[index],
-            index: index,
-          ),
+    final updatedService = await Navigator.push<Map<String, String>>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddServicePage(
+          initialData: myServices[index],
+          index: index,
         ),
-      );
-      if (updatedService != null && mounted) {
-        setState(() {
-          myServices[index] = updatedService;
-        });
-      }
-    } catch (e) {
-      // Manejo de error opcional
+      ),
+    );
+    if (updatedService != null && mounted) {
+      setState(() {
+        myServices[index] = updatedService;
+      });
     }
   }
 
@@ -75,27 +64,35 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
       _selectedIndex = index;
     });
     if (index == 1) {
-      Navigator.pushNamed(context, '/professional_messages');
+      Navigator.pushNamed(context, '/professional_messages', arguments: widget.user);
     } else if (index == 2) {
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => ProfessionalProfilePage(
-            userInfo: (widget.user ?? {}).map((key, value) => MapEntry(key, value.toString())),
-            services: myServices,
-          ),
-        ),
+        '/professional_profile',
+        arguments: {
+          'userInfo': widget.user,
+          'services': myServices,
+        },
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
       appBar: AppBar(
-        title: const Text('Mis Servicios'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Mis Servicios',
+          style: TextStyle(
+            color: Color(0xFF6B8C89),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
+        centerTitle: false,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,57 +111,61 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
           Expanded(
             child: myServices.isEmpty
                 ? const Center(child: Text('No tienes servicios publicados aún.'))
-                : ListView.builder(
+                : ListView.separated(
                     itemCount: myServices.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       final service = myServices[index];
                       return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        elevation: 2,
                         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         child: ListTile(
-                          title: Text(service['title']!),
-                          subtitle: Text('${service['description']} • ${service['city']} • ${service['price']}'),
+                          leading: CircleAvatar(
+                            backgroundColor: const Color(0xFF6B8C89),
+                            child: const Icon(Icons.work, color: Colors.white),
+                          ),
+                          title: Text(
+                            service['title'] ?? '',
+                            style: const TextStyle(
+                              color: Color(0xFF6B8C89),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(service['description'] ?? ''),
+                              Text(
+                                '${service['city']} • ${service['price']}',
+                                style: const TextStyle(fontSize: 13, color: Colors.black54),
+                              ),
+                            ],
+                          ),
                           trailing: IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () async {
-                              final updatedService = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddServicePage(
-                                    initialData: service,
-                                    index: index,
-                                  ),
-                                ),
-                              );
-
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mis Servicios'),
+                            icon: const Icon(Icons.edit, color: Color(0xFF6B8C89)),
+                            onPressed: () => _editService(index),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
-
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         label: const Text('Añadir servicio'),
-        onPressed: () {
-          Navigator.pushNamed(context, '/add_service');
-        },
+        backgroundColor: const Color(0xFF6B8C89),
+        onPressed: _addService,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
-
         unselectedItemColor: Colors.grey,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          // Navegación básica (ajusta según tus rutas)
-          if (index == 1) {
-            Navigator.pushNamed(context, '/professional_messages', arguments: widget.user);
-          } else if (index == 2) {
-            Navigator.pushNamed(context, '/professional_profile', arguments: {'userInfo': widget.user, 'services': []});
-          }
-        },
+        onTap: _onNavBarTap,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
