@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project1/HistoryPage.dart';
-import 'widgets/styledcontainer.dart';
+import '../widgets/styledcontainer.dart';
 
 class ParentProfilePage extends StatelessWidget {
   const ParentProfilePage({super.key});
@@ -9,7 +8,7 @@ class ParentProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
-      appBar: AppBar(
+            appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
@@ -21,8 +20,7 @@ class ParentProfilePage extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
         centerTitle: false,
-      ),
-      body: Center(
+      ),      body: Center(
         child: StyledContainer(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -70,12 +68,8 @@ class ParentProfilePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: const Text(
-                    'Guardar cambios',
-                    style: TextStyle(fontSize: 18),
-                  ),
+                  child: const Text('Guardar cambios'),
                 ),
               ),
             ],
@@ -83,7 +77,7 @@ class ParentProfilePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
+        currentIndex: 3,
         selectedItemColor: const Color(0xFF6B8C89),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
@@ -91,24 +85,16 @@ class ParentProfilePage extends StatelessWidget {
             Navigator.pushReplacementNamed(context, '/parent_dashboard');
           } else if (index == 1) {
             Navigator.pushReplacementNamed(context, '/messages');
-            } else if (index == 2) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => HistoryPage()),
-  );
+          } else if (index == 2) {
+            Navigator.pushReplacementNamed(context, '/history');
           } else if (index == 3) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ParentProfilePage(),
-              ),
-            );
+            // Ya estás en perfil
           }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: ''), // Solo icono, sin texto
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),

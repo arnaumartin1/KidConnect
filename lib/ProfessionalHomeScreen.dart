@@ -4,8 +4,10 @@ import 'ProfessionalProfilePage.dart';
 import '../widgets/styledcontainer.dart';
 
 class ProfessionalHomeScreen extends StatefulWidget {
-  final Map<String, dynamic>? user;
-  const ProfessionalHomeScreen({Key? key, required this.user}) : super(key: key);
+
+  final Map<String, dynamic> user;
+  const ProfessionalHomeScreen({super.key, required this.user});
+
 
   @override
   State<ProfessionalHomeScreen> createState() => _ProfessionalHomeScreenState();
@@ -89,30 +91,68 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.user == null) {
-      return Scaffold(
-        body: Center(
-          child: Text(
-            'Error: usuario no encontrado',
-            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFEFF3F3),
+      appBar: AppBar(
+        title: const Text('Mis Servicios'),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Bienvenido, ${widget.user['name'] ?? 'Profesional'}',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF6B8C89),
+              ),
+            ),
           ),
-        ),
-      );
-    }
+          Expanded(
+            child: myServices.isEmpty
+                ? const Center(child: Text('No tienes servicios publicados aún.'))
+                : ListView.builder(
+                    itemCount: myServices.length,
+                    itemBuilder: (context, index) {
+                      final service = myServices[index];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: ListTile(
+                          title: Text(service['title']!),
+                          subtitle: Text('${service['description']} • ${service['city']} • ${service['price']}'),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () async {
+                              final updatedService = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddServicePage(
+                                    initialData: service,
+                                    index: index,
+                                  ),
+                                ),
+                              );
+
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mis Servicios'),
       ),
-      body: Center(
-        child: Text(
-          'Aquí aparecerán tus servicios como profesional.',
-          style: TextStyle(fontSize: 18),
-        ),
+
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        label: const Text('Añadir servicio'),
+        onPressed: () {
+          Navigator.pushNamed(context, '/add_service');
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
+
         unselectedItemColor: Colors.grey,
         onTap: (index) {
           setState(() {

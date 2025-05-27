@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
-import 'ParentProfilePage.dart';
-import 'HistoryPage.dart';
 
 class ParentDashboardScreen extends StatelessWidget {
   const ParentDashboardScreen({super.key});
@@ -10,69 +8,65 @@ class ParentDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
-      body: StyledContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Panel de Padres',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF6B8C89),
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/book_service',
-                    arguments: {
-                      'id': 's1',
-                      'title': 'Clases de inglés para niños',
-                      'description': 'Aprende inglés de forma divertida',
-                      'city': 'Madrid',
-                      'price': 15.0,
-                      'rating': 4.5,
+      body: Center(
+        child: StyledContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Panel de Padres',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF6B8C89),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/parent_home');
                     },
-                  );
-                },
-                child: const Text('Reservar un servicio'),
-              ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6B8C89),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    child: const Text('Buscar servicios'),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
-        selectedItemColor: Color.fromARGB(255, 34, 178, 189),
+        selectedItemColor: const Color(0xFF6B8C89),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
           if (index == 0) {
-            Navigator.pushReplacementNamed(context, '/parent_dashboard');
+            // Ya estás en el dashboard
           } else if (index == 1) {
             Navigator.pushReplacementNamed(context, '/messages');
           } else if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => HistoryPage()),
-            );
+            Navigator.pushReplacementNamed(context, '/history');
           } else if (index == 3) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ParentProfilePage(),
-              ),
-            );
+            Navigator.pushReplacementNamed(context, '/parent_profile');
           }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'), // Ahora es el tercero
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),
