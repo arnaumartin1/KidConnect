@@ -13,7 +13,6 @@ class ProfessionalHomeScreen extends StatefulWidget {
 
 class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
   int _selectedIndex = 0;
-  // Simulación de servicios del profesional
   final List<Map<String, String>> myServices = [
     {
       'title': 'Clases de inglés para niños',
@@ -29,79 +28,130 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
     }
   ];
 
+  Future<void> _addService() async {
+    final newService = await Navigator.push<Map<String, String>>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddServicePage(),
+      ),
+    );
+    if (newService != null) {
+      setState(() {
+        myServices.add(newService);
+      });
+    }
+  }
+
+  Future<void> _editService(int index) async {
+    final updatedService = await Navigator.push<Map<String, String>>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddServicePage(
+          initialData: myServices[index],
+          index: index,
+        ),
+      ),
+    );
+    if (updatedService != null) {
+      setState(() {
+        myServices[index] = updatedService;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
       appBar: AppBar(
-        title: Text('Mis Servicios'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Mis Servicios',
+          style: TextStyle(
+            color: Color(0xFF6B8C89),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
+        centerTitle: false,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Bienvenido, Profesional',
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF6B8C89),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: StyledContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Bienvenido, Profesional',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6B8C89),
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            child: myServices.isEmpty
-                ? Center(child: Text('No tienes servicios publicados aún.'))
-                : ListView.builder(
-                    itemCount: myServices.length,
-                    itemBuilder: (context, index) {
-                      final service = myServices[index];
-                      return Card(
-                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        child: ListTile(
-                          title: Text(service['title']!),
-                          subtitle: Text('${service['description']} • ${service['city']} • ${service['price']}'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () async {
-                              final updatedService = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddServicePage(
-                                    initialData: service,
-                                    index: index,
-                                  ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: myServices.isEmpty
+                    ? const Center(child: Text('No tienes servicios publicados aún.'))
+                    : ListView.separated(
+                        itemCount: myServices.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (context, index) {
+                          final service = myServices[index];
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            elevation: 2,
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                              leading: CircleAvatar(
+                                backgroundColor: const Color(0xFF6B8C89),
+                                child: Icon(Icons.work, color: Colors.white),
+                              ),
+                              title: Text(
+                                service['title'] ?? '',
+                                style: const TextStyle(
+                                  color: Color(0xFF6B8C89),
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              );
-
-                              if (updatedService != null) {
-                                setState(() {
-                                  myServices[index] = updatedService;
-                                });
-                              }
-                            },
-                          ),
-                          onTap: () {
-                            // Navegar al detalle del servicio propio
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(service['description'] ?? ''),
+                                  Text(
+                                    '${service['city']} • ${service['price']}',
+                                    style: const TextStyle(fontSize: 13, color: Colors.black54),
+                                  ),
+                                ],
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.edit, color: Color(0xFF6B8C89)),
+                                onPressed: () => _editService(index),
+                              ),
+                              onTap: () {
+                                // Aquí podrías navegar al detalle del servicio propio
+                              },
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: Text('Añadir servicio'),
-        onPressed: () {
-          Navigator.pushNamed(context, '/add_service');
-        },
+        icon: const Icon(Icons.add),
+        label: const Text('Añadir servicio'),
+        backgroundColor: const Color(0xFF6B8C89),
+        onPressed: _addService,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 34, 178, 189),
+        selectedItemColor: const Color.fromARGB(255, 34, 178, 189),
         unselectedItemColor: Colors.grey,
         onTap: (index) {
           if (_selectedIndex == index) return;
@@ -120,11 +170,9 @@ class _ProfessionalHomeScreenState extends State<ProfessionalHomeScreen> {
                 ),
               ),
             );
-          } else if (index == 0) {
-            // Ya estamos en la pantalla de servicios, no hace falta navegar
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Servicios'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),

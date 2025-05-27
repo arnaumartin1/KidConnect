@@ -53,33 +53,97 @@ class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Historial')),
-      body: ListView.builder(
+      backgroundColor: const Color(0xFFEFF3F3),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Historial de servicios',
+          style: TextStyle(
+            color: Color(0xFF6B8C89),
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
+        centerTitle: false,
+      ),
+      body: ListView.separated(
+        padding: const EdgeInsets.all(16),
         itemCount: mockBookings.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 12),
         itemBuilder: (context, index) {
           final booking = mockBookings[index];
+          final bool isRated = booking.isRated;
+          final Color mainColor = isRated ? const Color(0xFF6B8C89) : Colors.orange;
 
-          return ListTile(
-            title: Text(booking.serviceTitle),
-            subtitle: Text(
-              'Proveedor: ${booking.providerName}\n${booking.date.toLocal().toString().split(' ')[0]}',
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
             ),
-            trailing: booking.isRated
-                ? const Icon(Icons.check_circle, color: Colors.green)
-                : IconButton(
-                    icon: const Icon(Icons.star_border, color: Colors.orange),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => RatingDialog(
-                          booking: booking,
-                          onRated: () {
-                            booking.isRated = true;
-                          },
-                        ),
-                      );
-                    },
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: mainColor,
+                  child: Icon(
+                    isRated ? Icons.check_circle : Icons.star_border,
+                    color: Colors.white,
                   ),
+                ),
+                title: Text(
+                  booking.serviceTitle,
+                  style: const TextStyle(
+                    color: Color(0xFF6B8C89),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Proveedor: ${booking.providerName}'),
+                    Text(
+                      'Fecha: ${booking.date.toLocal().toString().split(' ')[0]}',
+                      style: const TextStyle(fontSize: 13, color: Colors.black54),
+                    ),
+                    Text(
+                      'Precio: ${booking.price.toStringAsFixed(2)} €',
+                      style: const TextStyle(fontSize: 13, color: Colors.black54),
+                    ),
+                  ],
+                ),
+                trailing: isRated
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF6B8C89).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Text(
+                          'Valorado',
+                          style: TextStyle(
+                            color: Color(0xFF6B8C89),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : IconButton(
+                        icon: const Icon(Icons.star_border, color: Colors.orange),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => RatingDialog(
+                              booking: booking,
+                              onRated: () {
+                                booking.isRated = true;
+                              },
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ),
           );
         },
       ),
@@ -101,7 +165,7 @@ class HistoryPage extends StatelessWidget {
               (route) => false,
             );
           } else if (index == 2) {
-            // Ya estás en historial, no hacer nada o recargar si quieres
+            // Ya estás en historial
           } else if (index == 3) {
             Navigator.pushAndRemoveUntil(
               context,
@@ -153,10 +217,20 @@ class _RatingDialogState extends State<RatingDialog> {
             divisions: 4,
             label: _rating.toString(),
             onChanged: (value) => setState(() => _rating = value),
+            activeColor: const Color(0xFF6B8C89),
+            inactiveColor: const Color(0xFF6B8C89).withOpacity(0.3),
           ),
           TextField(
             controller: _commentController,
-            decoration: const InputDecoration(hintText: 'Escribe un comentario'),
+            decoration: const InputDecoration(
+              hintText: 'Escribe un comentario',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              filled: true,
+              fillColor: Color(0xFFF5F5F5),
+            ),
+            maxLines: 2,
           ),
         ],
       ),
@@ -180,6 +254,12 @@ class _RatingDialogState extends State<RatingDialog> {
               const SnackBar(content: Text('Gracias por tu valoración')),
             );
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF6B8C89),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
           child: const Text('Enviar'),
         ),
       ],
