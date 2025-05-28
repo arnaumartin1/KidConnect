@@ -21,34 +21,125 @@ class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Seleccionar fecha y hora')),
+      backgroundColor: const Color(0xFFEFF3F3),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Reservar servicio',
+          style: TextStyle(
+            color: Color(0xFF6B8C89),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
+        centerTitle: false,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ElevatedButton(
-              onPressed: _pickDate,
-              child: Text(
-                _selectedDate == null
-                    ? 'Seleccionar fecha'
-                    : DateFormat('dd/MM/yyyy').format(_selectedDate!),
+            Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+              elevation: 2,
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: const Color(0xFF6B8C89),
+                  child: const Icon(Icons.work, color: Colors.white),
+                ),
+                title: Text(
+                  widget.service.title,
+                  style: const TextStyle(
+                    color: Color(0xFF6B8C89),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.service.description),
+                    Text(
+                      '${widget.service.city} • ${widget.service.price.toStringAsFixed(2)} €/h',
+                      style: const TextStyle(fontSize: 13, color: Colors.black54),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _pickTime,
-              child: Text(
-                _selectedTime == null
-                    ? 'Seleccionar hora'
-                    : _selectedTime!.format(context),
+            const SizedBox(height: 24),
+            const Text(
+              'Selecciona fecha y hora',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Color(0xFF6B8C89),
               ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.calendar_today),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF6B8C89),
+                      side: const BorderSide(color: Color(0xFF6B8C89)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    onPressed: _pickDate,
+                    label: Text(
+                      _selectedDate == null
+                          ? 'Seleccionar fecha'
+                          : DateFormat('dd/MM/yyyy').format(_selectedDate!),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.access_time),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF6B8C89),
+                      side: const BorderSide(color: Color(0xFF6B8C89)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    onPressed: _pickTime,
+                    label: Text(
+                      _selectedTime == null
+                          ? 'Seleccionar hora'
+                          : _selectedTime!.format(context),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: (_selectedDate != null && _selectedTime != null)
-                  ? _confirmBooking
-                  : null,
-              child: const Text('Confirmar reserva'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.check_circle),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF6B8C89),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                onPressed: (_selectedDate != null && _selectedTime != null)
+                    ? _confirmBooking
+                    : null,
+                label: const Text('Confirmar reserva'),
+              ),
             ),
           ],
         ),
