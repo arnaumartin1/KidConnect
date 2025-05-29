@@ -91,3 +91,24 @@ footer {
   bottom: 0;
   width: 100%;
 }
+ul.funcionalitats {
+  list-style: none;
+  padding: 0;
+}
+
+ul.funcionalitats li {
+  background-color: var(--color-fons);
+  border-left: 6px solid var(--color-taronja);
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+ul.funcionalitats li:hover {
+  transform: translateY(-3px);
+  background-color: var(--color-blau);
+  color: var(--color-negre);
+}
+
