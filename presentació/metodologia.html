@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>KidConnect - Metodologia</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Metodologia</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inici</a></li>
+        <li><a href="metodologia.html">Metodologia</a></li>
+        <li><a href="planificacio.html">Planificació</a></li>
+        <li><a href="funcionalitats.html">Funcionalitats</a></li>
+        <li><a href="demo.html">Demo</a></li>
+        <li><a href="conclusions.html">Conclusions</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Metodologia SCRUM</h2>
+      <img src="scrum-diagrama.png" alt="Diagrama SCRUM" class="logo-full" style="max-width: 500px;">
+    </section>
+
+    <section>
+      <h2>Treball Col·laboratiu</h2>
+      <p>El nostre codi es gestiona amb GitHub i utilitzem Flutter per desenvolupar l'app.</p>
+      <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+        <img src="github-logo.png" alt="GitHub" class="logo-full" style="max-width: 180px;">
+        <img src="flutter-logo.png" alt="Flutter" class="logo-full" style="max-width: 180px;">
+
+
+      </div>
+    <pre><code>
+      KidConnect/
+      ├── android/
+      ├── ios/
+      ├── linux/
+      ├── macos/
+      ├── windows/
+      ├── lib/
+      │   ├── main.dart
+      │   ├── AddServicePage.dart
+      │   ├── App.dart
+      ├── pubspec.yaml
+      ├── analysis_options.yaml
+      ├── README.md
+      └── LICENSE
+    </code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 KidConnect</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    document.querySelectorAll('section, .logo-full').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
