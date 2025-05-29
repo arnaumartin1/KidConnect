@@ -24,7 +24,20 @@ class ParentDashboardScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 12),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '¡Bienvenido/a, usuario!',
+                    // Si tienes el nombre real: '¡Bienvenido/a, $nombre!'
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Color(0xFF6B8C89),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -68,6 +81,18 @@ class ParentDashboardScreen extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Mensajes'),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        ],
+      ),
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: CircleAvatar(
+              backgroundColor: const Color(0xFF6B8C89),
+              child: const Icon(Icons.person, color: Colors.white),
+            ),
+          ),
         ],
       ),
     );

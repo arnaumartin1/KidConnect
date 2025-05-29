@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
 
-class ParentProfilePage extends StatelessWidget {
+import 'dart:io';
+
+class ParentProfilePage extends StatefulWidget {
   const ParentProfilePage({super.key});
+
+  @override
+  State<ParentProfilePage> createState() => _ParentProfilePageState();
+}
+
+class _ParentProfilePageState extends State<ParentProfilePage> {
+  File? _profileImage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
-            appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
@@ -20,15 +29,26 @@ class ParentProfilePage extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
         centerTitle: false,
-      ),      body: Center(
+      ),
+      body: Center(
         child: StyledContainer(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CircleAvatar(
-                radius: 40,
-                backgroundColor: Color(0xFF6B8C89),
-                child: Icon(Icons.person, size: 50, color: Colors.white),
+              GestureDetector(
+                onTap: () async {
+                  // Aquí puedes usar image_picker o similar
+                  // final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  // if (picked != null) setState(() => _profileImage = File(picked.path));
+                },
+                child: CircleAvatar(
+                  radius: 48,
+                  backgroundColor: const Color(0xFF6B8C89),
+                  backgroundImage: _profileImage != null ? FileImage(_profileImage!) : null,
+                  child: _profileImage == null
+                      ? const Icon(Icons.person, size: 54, color: Colors.white)
+                      : null,
+                ),
               ),
               const SizedBox(height: 24),
               TextFormField(

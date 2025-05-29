@@ -14,6 +14,21 @@ class ServiceExamplesPage extends StatefulWidget {
 class _ServiceExamplesPageState extends State<ServiceExamplesPage> {
   String _search = '';
 
+  // Set to store favorite service IDs
+  final Set<String> _favoriteServiceIds = {};
+
+  bool isFavorite(Service service) {
+    return _favoriteServiceIds.contains(service.id);
+  }
+
+  void toggleFavorite(Service service) {
+    if (isFavorite(service)) {
+      _favoriteServiceIds.remove(service.id);
+    } else {
+      _favoriteServiceIds.add(service.id);
+    }
+  }
+
   // Lista de todos los servicios de ejemplo
   final List<Service> allExamples = [
     Service(
@@ -137,6 +152,13 @@ class _ServiceExamplesPageState extends State<ServiceExamplesPage> {
               onChanged: (value) => setState(() => _search = value),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Text(
+              'Consejo: Puedes buscar por ciudad, tipo o nombre del servicio.',
+              style: TextStyle(color: Colors.grey, fontSize: 13),
+            ),
+          ),
           Expanded(
             child: examples.isEmpty
                 ? const Center(child: Text('No se encontraron servicios.'))
@@ -161,7 +183,32 @@ class _ServiceExamplesPageState extends State<ServiceExamplesPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          subtitle: Text('${service.city} • ${service.price.toStringAsFixed(2)} €/h'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${service.city} • ${service.price.toStringAsFixed(2)} €/h'),
+                              Row(
+                                children: [
+                                  const Icon(Icons.star, color: Colors.orange, size: 18),
+                                  Text(
+                                    service.rating.toStringAsFixed(1),
+                                    style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              isFavorite(service) ? Icons.favorite : Icons.favorite_border,
+                              color: isFavorite(service) ? Colors.red : Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                toggleFavorite(service);
+                              });
+                            },
+                          ),
                           onTap: () {
                             Navigator.push(
                               context,

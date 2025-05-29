@@ -46,51 +46,69 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   itemBuilder: (context, index) {
                     final booking = mockBookings[index];
                     final rated = isRated(booking.serviceTitle);
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
+                    return Dismissible(
+                      key: ValueKey(booking.hashCode),
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
                       ),
-                      elevation: 2,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: const Color(0xFF6B8C89),
-                          child: const Icon(Icons.history, color: Colors.white),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (_) {
+                        setState(() {
+                          mockBookings.removeAt(index);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Reserva eliminada del historial')),
+                        );
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
                         ),
-                        title: Text(
-                          booking.serviceTitle,
-                          style: const TextStyle(
-                            color: Color(0xFF6B8C89),
-                            fontWeight: FontWeight.bold,
+                        elevation: 2,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: const Color(0xFF6B8C89),
+                            child: const Icon(Icons.history, color: Colors.white),
                           ),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(booking.providerName),
-                            Text(
-                              '${booking.date.toLocal().toString().split(' ')[0]}',
-                              style: const TextStyle(fontSize: 13, color: Colors.black54),
+                          title: Text(
+                            booking.serviceTitle,
+                            style: const TextStyle(
+                              color: Color(0xFF6B8C89),
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(
-                              'Precio: ${booking.price.toStringAsFixed(2)} €',
-                              style: const TextStyle(fontSize: 13, color: Colors.black54),
-                            ),
-                          ],
-                        ),
-                        trailing: rated
-                            ? const Icon(Icons.star, color: Colors.orange)
-                            : IconButton(
-                                icon: const Icon(Icons.star_border, color: Colors.orange),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => RatingDialog(
-                                      serviceId: booking.serviceTitle,
-                                      onRated: () => setState(() {}),
-                                    ),
-                                  );
-                                },
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(booking.providerName),
+                              Text(
+                                '${booking.date.toLocal().toString().split(' ')[0]}',
+                                style: const TextStyle(fontSize: 13, color: Colors.black54),
                               ),
+                              Text(
+                                'Precio: ${booking.price.toStringAsFixed(2)} €',
+                                style: const TextStyle(fontSize: 13, color: Colors.black54),
+                              ),
+                            ],
+                          ),
+                          trailing: rated
+                              ? const Icon(Icons.star, color: Colors.orange)
+                              : IconButton(
+                                  icon: const Icon(Icons.star_border, color: Colors.orange),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => RatingDialog(
+                                        serviceId: booking.serviceTitle,
+                                        onRated: () => setState(() {}),
+                                      ),
+                                    );
+                                  },
+                                ),
+                        ),
                       ),
                     );
                   },

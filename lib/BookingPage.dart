@@ -196,10 +196,29 @@ class _BookingPageState extends State<BookingPage> {
       const SnackBar(content: Text('Reserva confirmada y guardada en historial')),
     );
 
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => const ParentDashboardScreen()),
-      (route) => false,
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(Icons.check_circle, color: Color(0xFF6B8C89), size: 64),
+            SizedBox(height: 16),
+            Text('¡Reserva realizada con éxito!', style: TextStyle(fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
     );
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).pop(); // Cierra el diálogo
+      // Luego navega al dashboard
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const ParentDashboardScreen()),
+        (route) => false,
+      );
+    });
   }
 }

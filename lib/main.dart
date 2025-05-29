@@ -67,6 +67,14 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData.dark().copyWith(
+        primaryColor: const Color(0xFF6B8C89),
+        colorScheme: ColorScheme.dark(
+          primary: const Color(0xFF6B8C89),
+          secondary: const Color(0xFF6B8C89),
+        ),
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginSplashScreen(),
