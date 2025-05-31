@@ -67,3 +67,20 @@
   </section>
 </main>
 
+  <footer>
+    <p>&copy; 2025 KidConnect</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    document.querySelectorAll('section, .logo-full').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

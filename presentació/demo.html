@@ -4,10 +4,55 @@
   <meta charset="UTF-8">
   <title>KidConnect - Demo</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .demo-section {
+      background: linear-gradient(135deg, #f9de80, #aad9e2);
+      padding: 40px 20px;
+      border-radius: 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+    .demo-section h2 {
+      color: #f28c28;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    .demo-section img, .demo-section iframe {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      margin-top: 20px;
+    }
+    .demo-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .demo-flex > div {
+      flex: 1 1 400px;
+    }
+    .demo-btn {
+      display: inline-block;
+      background-color: #4dd0e1;
+      color: white;
+      padding: 12px 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .demo-btn:hover {
+      background-color: #00acc1;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Demo de l'App</h1>
+    <h1>Demo de l'app</h1>
     <nav>
       <ul>
         <li><a href="index.html">Inici</a></li>
@@ -21,12 +66,47 @@
   </header>
 
   <main>
-    <p>Pots visualitzar la demo de l'app a través del següent enllaç:</p>
-    <p><a href="https://www.figma.com/proto/AH9LtBSX4fMOWDAiXgy12g/KidConnect?node-id=0-1&t=MnoFCeiNgRMJwBqW-1" target=\"_blank\">Figma Demo - KidConnect</a></p>
+    <section class="demo-section">
+      <h2>🎨 Prototip amb Figma</h2>
+      <div class="demo-flex">
+        <div>
+          <p>Abans de començar el desenvolupament de l'app, vam dissenyar un <strong>prototip interactiu amb Figma</strong>. Això ens va permetre definir l'estructura, l'estètica i el recorregut dels usuaris dins l'aplicació.</p>
+          <a class="demo-btn" href="https://www.figma.com/proto/AH9LtBSX4fMOWDAiXgy12g/KidConnect?node-id=0-1" target="_blank">🌐 Veure Prototip a Figma</a>
+        </div>
+        <div>
+          <img src="figma-preview.png" alt="Vista prèvia del prototip Figma">
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>📱 App desenvolupada amb Flutter</h2>
+      <div class="demo-flex">
+        <div>
+          <p>Un cop establerta la idea, vam desenvolupar <strong>KidConnect amb Flutter</strong>, utilitzant una arquitectura modular i integrant funcionalitats com la reserva, el xat, les valoracions i els filtres.</p>
+          <p>La següent demo mostra <strong>l'app en acció</strong>, destacant les seves principals funcionalitats i la seva fluïdesa.</p>
+        </div>
+        <div>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen title="Demo KidConnect"></iframe>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
     <p>&copy; 2025 KidConnect</p>
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    document.querySelectorAll('section, .logo-full').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
