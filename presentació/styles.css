@@ -65,17 +65,20 @@ main {
 
 section {
   margin-bottom: 50px;
-  background: var(--color-blanc);
+  background: linear-gradient(135deg, #f9de80, #aad9e2);
   padding: 30px 40px;
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  color: #333;
 }
 
 section:hover {
   transform: translateY(-8px);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
 }
+
+
 
 h1, h2 {
   color: var(--color-taronja);
@@ -110,19 +113,30 @@ h1, h2 {
 }
 
 /* Estil per al codi de l'esquema de GitHub */
-pre {
-  background-color: #001219;
-  color: #90e0ef;
+section pre {
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2); /* gradient suau blau clar */
+  color: #006064; /* blau fosc */
   padding: 20px 25px;
   border-radius: 14px;
   overflow-x: auto;
   font-family: 'Fira Code', monospace, monospace;
   font-size: 1rem;
-  box-shadow: inset 0 0 15px #00b4d8;
+  box-shadow: inset 0 0 15px #00bcd4;
   max-width: 100%;
   margin-top: 20px;
   white-space: pre-wrap;
   word-break: break-word;
+  border: 1px solid #00acc1; /* borde suau blau */
+}
+section .code-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+section .code-container pre {
+  max-width: 600px;
+  width: 100%;
 }
 
 footer {
@@ -135,6 +149,20 @@ footer {
   bottom: 0;
   width: 100%;
 }
+.logo-tech {
+  max-width: 160px;
+  border-radius: 14px;
+  background-color: var(--color-blanc);
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-tech:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
 
 ul.funcionalitats {
   list-style: none;
