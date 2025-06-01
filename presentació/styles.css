@@ -1,4 +1,4 @@
-/* styles.css */
+/* style.css */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
 :root {
@@ -7,8 +7,10 @@
   --color-blau: #9dc9e2;
   --color-verd: #bde5a8;
   --color-taronja: #f28c28;
-  --color-titol: #313131;
-  --color-text: #444;
+  --color-rosa: #fca6c9;
+  --color-violeta: #a18cd1;
+  --color-menta: #b5ead7;
+  --color-text: #333;
   --color-negre: #000;
   --color-blanc: #fff;
 }
@@ -17,16 +19,18 @@ body {
   font-family: 'Quicksand', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--color-fons);
+  background: linear-gradient(135deg, #fefaf4, #eaf9fb);
   color: var(--color-text);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 header {
-  background: var(--color-groc);
-  padding: 30px 20px 20px;
+  background: linear-gradient(to right, #fca6c9, #f9de80);
+  padding: 40px 20px 30px;
   text-align: center;
-  color: var(--color-titol);
+  color: var(--color-negre);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 nav ul {
@@ -34,136 +38,108 @@ nav ul {
   padding: 0;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 nav a {
-  background-color: var(--color-blau);
-  color: var(--color-negre);
-  padding: 10px 20px;
-  border-radius: 12px;
+  background: linear-gradient(to right, #9dc9e2, #a18cd1);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 14px;
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 nav a:hover {
-  background-color: var(--color-verd);
-  color: var(--color-taronja);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 main {
-  padding: 40px 20px 80px;
-  max-width: 1000px;
+  padding: 40px 20px 100px;
+  max-width: 1100px;
   margin: auto;
-  background-color: var(--color-blanc);
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-section {
+.demo-section {
+  background: linear-gradient(145deg, #f9de80, #b5ead7);
+  padding: 40px 30px;
+  border-radius: 24px;
   margin-bottom: 50px;
-  background: linear-gradient(135deg, #f9de80, #aad9e2);
-  padding: 30px 40px;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  color: #333;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  color: var(--color-text);
+  animation: fadeSlideUp 0.8s ease-out both;
 }
 
-section:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+.demo-section h2 {
+  color: #f28c28;
+  font-size: 30px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #f28c28, #a18cd1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-
-
-h1, h2 {
-  color: var(--color-taronja);
-  font-weight: 700;
-  margin-bottom: 15px;
-}
-
-.logo-full {
-  display: block;
-  max-width: 250px;
-  margin: 25px auto 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  background: var(--color-blanc);
-  padding: 12px;
-}
-
-.logo-full:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-/* Contenidor flexible per les imatges de GitHub i Flutter */
-.logo-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-/* Estil per al codi de l'esquema de GitHub */
-section pre {
-  background: linear-gradient(135deg, #e0f7fa, #b2ebf2); /* gradient suau blau clar */
-  color: #006064; /* blau fosc */
-  padding: 20px 25px;
-  border-radius: 14px;
-  overflow-x: auto;
-  font-family: 'Fira Code', monospace, monospace;
-  font-size: 1rem;
-  box-shadow: inset 0 0 15px #00bcd4;
+.demo-section img, .demo-section iframe {
   max-width: 100%;
-  margin-top: 20px;
-  white-space: pre-wrap;
-  word-break: break-word;
-  border: 1px solid #00acc1; /* borde suau blau */
-}
-section .code-container {
-  display: flex;
-  justify-content: center;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   margin-top: 25px;
 }
 
-section .code-container pre {
-  max-width: 600px;
-  width: 100%;
+.demo-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.demo-flex > div {
+  flex: 1 1 420px;
+}
+
+.demo-btn {
+  display: inline-block;
+  background: linear-gradient(to right, #a18cd1, #fca6c9);
+  color: white;
+  padding: 14px 24px;
+  margin-top: 20px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.demo-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #fca6c9, #a18cd1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 footer {
   text-align: center;
-  padding: 15px;
-  background: var(--color-blau);
+  padding: 20px;
+  background: linear-gradient(to right, #aad9e2, #bde5a8);
   color: var(--color-negre);
   font-weight: bold;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-.logo-tech {
-  max-width: 160px;
-  border-radius: 14px;
-  background-color: var(--color-blanc);
-  padding: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.logo-tech:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-
 ul.funcionalitats {
   list-style: none;
   padding: 0;
@@ -184,4 +160,46 @@ ul.funcionalitats li:hover {
   background-color: var(--color-blau);
   color: var(--color-negre);
 }
+.hero-header {
+  background: linear-gradient(135deg, #fca6c9, #f9de80);
+  padding: 100px 20px 60px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 72px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #f28c28, #a18cd1, #9dc9e2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: popFade 1.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-subtitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 10px;
+  background: linear-gradient(to right, #222, #444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: popFade 2s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes popFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
