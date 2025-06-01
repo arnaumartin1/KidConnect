@@ -4,6 +4,43 @@
   <meta charset="UTF-8">
   <title>KidConnect - Metodologia</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .tech-logo {
+      max-width: 140px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .tech-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .code-container {
+      background-color: #1e1e1e;
+      color: #c5e1a5;
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 30px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    section.demo-section h2 {
+      background: linear-gradient(to right, #f28c28, #a18cd1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 30px;
+      justify-content: space-between;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -20,69 +57,51 @@
     </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>Metodologia SCRUM</h2>
-      <img src="scrum-diagrama.png" alt="Diagrama SCRUM" class="logo-full" style="max-width: 500px;">
-    </section>
+ <main>
+  <section class="demo-section">
+    <h2>🔄 Metodologia SCRUM</h2>
+    <div class="section-flex">
+      <div style="flex: 1 1 400px;">
+        <p>El projecte es va dur a terme seguint el model <strong>SCRUM</strong>, una metodologia Agile centrada en iteracions curtes (sprints), comunicació constant i revisió de producte. Aquesta tècnica ens va permetre adaptar-nos ràpidament als canvis i distribuir bé els rols dins l’equip.</p>
+      </div>
+      <div style="flex: 1 1 400px; text-align: center;">
+        <img src="scrum-diagrama.png" alt="Diagrama SCRUM" class="logo-full" style="max-width: 90%; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+      </div>
+    </div>
+  </section>
 
-    <section>
-      <h2>Treball Col·laboratiu</h2>
-      <p>El nostre codi es gestiona amb GitHub i utilitzem Flutter per desenvolupar l'app.</p>
-        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-          <img src="github-logo.png" alt="GitHub" class="logo-tech">
-          <img src="flutter-logo.png" alt="Flutter" class="logo-tech">
-        </div>
+  <section class="demo-section">
+    <h2>🤝 Treball Col·laboratiu</h2>
+    <p>El nostre equip ha treballat de manera col·laborativa mitjançant <strong>GitHub</strong> com a repositori i gestió de versions, i hem utilitzat <strong>Flutter</strong> com a framework per al desenvolupament de l'app.</p>
+    <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px;">
+      <img src="github-logo.png" alt="GitHub" class="tech-logo" style="max-width: 120px;">
+      <img src="flutter-logo.png" alt="Flutter" class="tech-logo" style="max-width: 120px;">
+    </div>
+  </section>
 
+  <section class="demo-section">
+    <h2>📂 Arquitectura del projecte</h2>
+    <p>La nostra aplicació segueix una arquitectura modular i clara. A continuació es mostra l’estructura de carpetes del projecte:</p>
 
+    <div class="code-container">
+<pre><code>KidConnect/
+├── android/
+├── ios/
+├── linux/
+├── macos/
+├── windows/
+├── lib/
+│   ├── main.dart
+│   ├── AddServicePage.dart
+│   ├── App.dart
+│   ├── ...
+├── pubspec.yaml
+├── README.md
+└── LICENSE</code></pre>
+    </div>
+  </section>
+</main>
 
-<div class="code-container">
-  <pre><code>
-    KidConnect/
-    ├── android/
-    ├── ios/
-    ├── linux/
-    ├── macos/
-    ├── windows/
-    ├── lib/
-    │   ├── main.dart
-    │   ├── AddServicePage.dart
-    │   ├── App.dart
-    │   ├── Booking.dart
-    │   ├── BookingPage.dart
-    │   ├── ChatPage.dart
-    │   ├── FavouritesPage.dart
-    │   ├── HistoryPage.dart
-    │   ├── HomeScreen.dart
-    │   ├── Login_splash_screen.dart
-    │   ├── LoginScreen.dart
-    │   ├── main.dart
-    │   ├── Message.dart
-    │   ├── MessageScreen.dart
-    │   ├── ParentDashboardScreen.dart
-    │   ├── ParentHomeScreen.dart
-    │   ├── ParentMainPage.dart
-    │   ├── ParentProfilePage.dart
-    │   ├── ProfessionalDashboardScreen.dart
-    │   ├── ProfessionalHomeScreen.dart
-    │   ├── ProfessionalMessageScreen.dart
-    │   ├── ProfessionalHomeScreen.dart
-    │   ├── ProfessionalProfilePage.dart
-    │   ├── Rating.dart
-    │   ├── RatingDialog.dart
-    │   ├── RegisterScreen.dart
-    │   ├── Service.dart
-    │   ├── ServiceDetailsPage.dart
-    │   ├── ServiceSearchPage.dart
-    │   ├── UserTypeSelection.dart
-    ├── pubspec.yaml
-    ├── analysis_options.yaml
-    ├── README.md
-    └── LICENSE
-  </code></pre>
-</div>
-    </section>
-  </main>
 
   <footer>
     <p>&copy; 2025 KidConnect</p>
