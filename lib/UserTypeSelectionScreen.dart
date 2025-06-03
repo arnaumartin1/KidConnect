@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/widgets/styledcontainer.dart';
 import 'ParentDashboardScreen.dart';
+import '../widgets/appbar.dart';
 
 class UserTypeSelectionScreen extends StatefulWidget {
   const UserTypeSelectionScreen({super.key});
@@ -13,6 +14,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const KidConnectAppBar(),
       backgroundColor: const Color(0xFFEFF3F3),
       body: StyledContainer(
         child: Column(

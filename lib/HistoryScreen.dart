@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
-import 'Booking.dart';
+// import 'Booking.dart';
 import 'mockbooking.dart';
 import 'Rating.dart' as rating_lib;
 import 'RatingDialog.dart';

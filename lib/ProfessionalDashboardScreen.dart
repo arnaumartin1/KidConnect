@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
+import '../widgets/appbar.dart';
 
 class ProfessionalDashboardScreen extends StatelessWidget {
   const ProfessionalDashboardScreen({super.key});
@@ -7,6 +8,7 @@ class ProfessionalDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const KidConnectAppBar(),
       backgroundColor: const Color(0xFFEFF3F3),
       body: Center(
         child: StyledContainer(

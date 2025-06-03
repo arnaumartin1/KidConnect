@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ServiceDetailPage.dart';
-import 'Service.dart'; // Make sure this file defines the Service class
-
-
+import 'Service.dart'; 
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});

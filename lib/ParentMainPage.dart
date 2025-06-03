@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/appbar.dart';
 
 class ParentMainPage extends StatefulWidget {
   const ParentMainPage({super.key});
@@ -11,9 +12,7 @@ class _ParentMainPageState extends State<ParentMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Parent Main Page'),
-      ),
+      appBar: const KidConnectAppBar(),
       body: Center(
         child: Text('Welcome to Parent Main Page!'),
       ),
