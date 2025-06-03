@@ -8,18 +8,7 @@ class ProfessionalDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text(
-          'Panel de Profesionales',
-          style: TextStyle(
-            color: Color(0xFF6B8C89),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
-      ),
+      appBar: const KidConnectAppBar(),
       backgroundColor: const Color(0xFFEFF3F3),
       body: Center(
         child: StyledContainer(
@@ -42,16 +31,6 @@ class ProfessionalDashboardScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/add_service');
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6B8C89),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    textStyle:
-                        const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
                   child: const Text('Añadir Servicio'),
                 ),
               ),
@@ -62,16 +41,6 @@ class ProfessionalDashboardScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/professional_messages');
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6B8C89),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    textStyle:
-                        const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
                   child: const Text('Mensajes'),
                 ),
               ),
@@ -82,16 +51,6 @@ class ProfessionalDashboardScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/professional_profile');
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6B8C89),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    textStyle:
-                        const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
                   child: const Text('Mi perfil'),
                 ),
               ),

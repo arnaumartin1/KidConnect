@@ -8,18 +8,7 @@ class ParentDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text(
-          'Panel de Padres', // o 'Panel de Profesionales'
-          style: TextStyle(
-            color: Color(0xFF6B8C89),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        iconTheme: const IconThemeData(color: Color(0xFF6B8C89)),
-      ),
+      appBar: const KidConnectAppBar(),
       backgroundColor: const Color(0xFFEFF3F3),
       body: Center(
         child: StyledContainer(
