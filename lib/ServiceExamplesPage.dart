@@ -133,8 +133,8 @@ class _ServiceExamplesPageState extends State<ServiceExamplesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.serviceType.isEmpty ? 'Todos los servicios' : '${widget.serviceType}'),
-        backgroundColor: Color(0xFF6B8C89),
-        iconTheme: const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
+        backgroundColor: const Color(0xFF6B8C89),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       backgroundColor: const Color(0xFFEFF3F3),
       body: Column(

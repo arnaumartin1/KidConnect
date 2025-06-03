@@ -14,12 +14,7 @@ class ParentHomeScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: const Color(0xFF6B8C89),
         elevation: 2,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-        Navigator.pushReplacementNamed(context, '/parent_dashboard');
-          },
-        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -39,12 +34,12 @@ class ParentHomeScreen extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Buscar...',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search, color: Color(0xFF6B8C89)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
                   filled: true,
-                  fillColor: Color.fromARGB(255, 183, 196, 194),
+                  fillColor: const Color(0xFFF5F5F5),
                 ),
               ),
               const SizedBox(height: 24),
@@ -69,12 +64,12 @@ class ParentHomeScreen extends StatelessWidget {
                     },
                     style: OutlinedButton.styleFrom(
                       backgroundColor: service == 'Todos'
-                          ? Color(0xFF6B8C89)
+                          ? const Color(0xFF6B8C89)
                           : Colors.white,
                       foregroundColor: service == 'Todos'
                           ? Colors.white
-                          : Color(0xFF6B8C89),
-                      side: BorderSide(
+                          : const Color(0xFF6B8C89),
+                      side: const BorderSide(
                         color: Color(0xFF6B8C89),
                         width: 2,
                       ),
