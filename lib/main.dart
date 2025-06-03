@@ -3,6 +3,8 @@ import 'package:project1/ParentMainPage.dart';
 import 'package:project1/ProfessionalMessagesScreen.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'db_helper.dart';
+import 'dart:io';
+import 'package:window_size/window_size.dart';
 
 import 'AddServicePage.dart';
 import 'ProfessionalProfilePage.dart';
@@ -22,6 +24,14 @@ import 'ParentProfilePage.dart';
 import 'ServiceSearchPage.dart'; 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowTitle('KidConnect');
+    setWindowMinSize(const Size(400, 800));
+    setWindowMaxSize(const Size(1280, 900));
+    setWindowFrame(const Rect.fromLTWH(100, 100, 400, 800)); // X, Y, width, height
+  }
+
   sqfliteFfiInit();
   databaseFactory = databaseFactoryFfi;
 
