@@ -9,9 +9,16 @@ class LoginSplashScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Si tienes imagen de fondo, descomenta la siguiente línea y pon tu asset
-          // Image.asset('assets/images/tu_fondo.jpg', fit: BoxFit.cover),
-          Container(color: const Color(0xFFEFF3F3)),
+          // Imagen de fondo
+          Image.asset(
+            'assets/images/fondo_bienvenida.jpg',
+            fit: BoxFit.cover,
+          ),
+          // Capa semitransparente para mejor legibilidad (opcional)
+          Container(
+            color: Colors.white.withOpacity(0.7),
+          ),
+          // Contenido principal
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Column(
