@@ -19,7 +19,7 @@ import 'Service.dart';
 import 'MessagesScreen.dart'; 
 import 'HistoryScreen.dart';
 import 'ParentProfilePage.dart';
-import 'ServiceSearchPage.dart'; // Make sure this file exists and contains ServiceSearchPage
+import 'ServiceSearchPage.dart'; 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark().copyWith(
         primaryColor: const Color(0xFF6B8C89),
         colorScheme: ColorScheme.dark(
-          primary: const Color(0xFF6B8C89),
+          primary: const Color.fromARGB(255, 255, 255, 255),
           secondary: const Color(0xFF6B8C89),
         ),
       ),

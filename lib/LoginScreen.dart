@@ -148,38 +148,82 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextFormField(
+                    TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Correo electrónico',
+                      labelStyle: const TextStyle(
+                      color: Color(0xFF6B8C89), // Visible label color
+                      ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF6B8C89), // Visible border color
+                      ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF6B8C89), // Visible border color
+                      ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF4A6A68), // Focused border color
+                        width: 2,
+                      ),
                       ),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: Color(0xFFF5F5F5), // Light background for contrast
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xFF333333), // Visible input text color
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Introduce tu correo';
+                      return 'Introduce tu correo';
                       }
                       return null;
                     },
-                  ),
+                    ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                    TextFormField(
                     controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Contraseña',
+                      labelStyle: const TextStyle(
+                      color: Color(0xFF6B8C89), // Visible label color
+                      ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF6B8C89), // Visible border color
+                      ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF6B8C89), // Visible border color
+                      ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF4A6A68), // Focused border color
+                        width: 2,
+                      ),
                       ),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: Color(0xFFF5F5F5), // Light background for contrast
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xFF333333), // Visible input text color
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Introduce tu contraseña';
+                      return 'Introduce tu contraseña';
                       }
                       return null;
                     },

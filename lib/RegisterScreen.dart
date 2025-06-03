@@ -133,103 +133,159 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              Form(
+                Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        labelText: 'Nombre',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, ingresa tu nombre';
-                        }
-                        return null;
-                      },
+                  TextFormField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                    labelText: 'Nombre',
+                    labelStyle: const TextStyle(color: Color(0xFF6B8C89)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
                     ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: surnameController,
-                      decoration: InputDecoration(
-                        labelText: 'Apellidos',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, ingresa tus apellidos';
-                        }
-                        return null;
-                      },
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
                     ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: birthDateController,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        labelText: 'Fecha de nacimiento',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        hintText: 'DD/MM/YYYY',
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon: Icon(Icons.calendar_today, color: Color(0xFF6B8C89)),
-                      ),
-                      onTap: () => _selectDate(context),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, selecciona tu fecha de nacimiento';
-                        }
-                        return null;
-                      },
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF4B6C6A), width: 2),
                     ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Correo electrónico',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, ingresa tu correo electrónico';
-                        }
-                        return null;
-                      },
+                    filled: true,
+                    fillColor: Colors.transparent,
                     ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Contraseña',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, ingresa tu contraseña';
-                        }
-                        return null;
-                      },
+                    style: const TextStyle(color: Color(0xFF222222)),
+                    validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Por favor, ingresa tu nombre';
+                    }
+                    return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: surnameController,
+                    decoration: InputDecoration(
+                    labelText: 'Apellidos',
+                    labelStyle: const TextStyle(color: Color(0xFF6B8C89)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF4B6C6A), width: 2),
+                    ),
+                    filled: true,
+                    fillColor: Colors.transparent,
+                    ),
+                    style: const TextStyle(color: Color(0xFF222222)),
+                    validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Por favor, ingresa tus apellidos';
+                    }
+                    return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: birthDateController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                    labelText: 'Fecha de nacimiento',
+                    labelStyle: const TextStyle(color: Color(0xFF6B8C89)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF4B6C6A), width: 2),
+                    ),
+                    hintText: 'DD/MM/YYYY',
+                    hintStyle: const TextStyle(color: Color(0xFF6B8C89)),
+                    filled: true,
+                    fillColor: Colors.transparent,
+                    suffixIcon: const Icon(Icons.calendar_today, color: Color(0xFF6B8C89)),
+                    ),
+                    style: const TextStyle(color: Color(0xFF222222)),
+                    onTap: () => _selectDate(context),
+                    validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, selecciona tu fecha de nacimiento';
+                    }
+                    return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                    labelText: 'Correo electrónico',
+                    labelStyle: const TextStyle(color: Color(0xFF6B8C89)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF4B6C6A), width: 2),
+                    ),
+                    filled: true,
+                    fillColor: Colors.transparent,
+                    ),
+                    style: const TextStyle(color: Color(0xFF222222)),
+                    validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Por favor, ingresa tu correo electrónico';
+                    }
+                    return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                    labelStyle: const TextStyle(color: Color(0xFF6B8C89)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF6B8C89)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Color(0xFF4B6C6A), width: 2),
+                    ),
+                    filled: true,
+                    fillColor: Colors.transparent,
+                    ),
+                    style: const TextStyle(color: Color(0xFF222222)),
+                    validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Por favor, ingresa tu contraseña';
+                    }
+                    return null;
+                    },
                     ),
                     const SizedBox(height: 24),
                     SizedBox(
