@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
-import 'serviceexamplespage.dart'; // Asegúrate de importar la página de ejemplos de servicio
+import 'serviceexamplespage.dart';
 
 class ParentHomeScreen extends StatelessWidget {
   const ParentHomeScreen({super.key});
@@ -10,13 +10,16 @@ class ParentHomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF3F3),
       appBar: AppBar(
-        title: const Text('Buscar servicios'),
+        title: const Text('KidConnect'),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF6B8C89),
+        elevation: 2,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+        Navigator.pushReplacementNamed(context, '/parent_dashboard');
+          },
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -41,7 +44,7 @@ class ParentHomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24),
                   ),
                   filled: true,
-                  fillColor: Color(0xFFF5F5F5),
+                  fillColor: Color.fromARGB(255, 183, 196, 194),
                 ),
               ),
               const SizedBox(height: 24),

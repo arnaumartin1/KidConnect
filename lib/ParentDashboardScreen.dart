@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
+import '../widgets/appbar.dart';
 
 class ParentDashboardScreen extends StatelessWidget {
   const ParentDashboardScreen({super.key});
@@ -7,6 +8,7 @@ class ParentDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const KidConnectAppBar(),
       backgroundColor: const Color(0xFFEFF3F3),
       body: Center(
         child: StyledContainer(
@@ -83,18 +85,18 @@ class ParentDashboardScreen extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              backgroundColor: const Color(0xFF6B8C89),
-              child: const Icon(Icons.person, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Dashboard'),
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(right: 16.0),
+      //       child: CircleAvatar(
+      //         backgroundColor: const Color(0xFF6B8C89),
+      //         child: const Icon(Icons.person, color: Colors.white),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

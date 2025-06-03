@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/styledcontainer.dart';
-
 import 'dart:io';
 
 class ParentProfilePage extends StatefulWidget {

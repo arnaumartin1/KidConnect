@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/styledcontainer.dart';
+// import '../widgets/styledcontainer.dart';
+import '../widgets/appbar.dart';
 
 class AddServicePage extends StatefulWidget {
   // const AddServicePage({super.key});
@@ -41,13 +42,14 @@ class _AddServicePageState extends State<AddServicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('KidConnect'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: const KidConnectAppBar(),
+      // appBar: AppBar(
+      //   title: const Text('KidConnect'),
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back),
+      //     onPressed: () => Navigator.pop(context),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
