@@ -29,7 +29,7 @@ void main() async {
     setWindowTitle('KidConnect');
     setWindowMinSize(const Size(400, 800));
     setWindowMaxSize(const Size(1280, 900));
-    setWindowFrame(const Rect.fromLTWH(100, 100, 400, 800)); // X, Y, width, height
+    setWindowFrame(const Rect.fromLTWH(100, 100, 500, 900)); // X, Y, width, height
   }
 
   sqfliteFfiInit();
