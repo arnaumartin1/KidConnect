@@ -97,12 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
-                          foregroundColor: const Color(0xFF6B8C89),
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color(0xFF6B8C89),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.white,
                         ),
                         child: const Text(
                           'Iniciar Sesión',
@@ -117,11 +117,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: const Color(0xFF6B8C89),
+                          backgroundColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.transparent,
                         ),
                         child: const Text('Registrarme'),
                       ),

@@ -79,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Tabs de login/registro
+              // Barra de pestañas superior
               Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFFF5F5F5),
@@ -94,27 +94,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: const Color(0xFF6B8C89),
+                          backgroundColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
-                        child: const Text('Iniciar Sesion'),
+                        child: const Text('Iniciar Sesión'),
                       ),
                     ),
                     Expanded(
-                      child: ElevatedButton(
+                      child: TextButton(
                         onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6B8C89),
+                        style: TextButton.styleFrom(
                           foregroundColor: Colors.white,
-                          elevation: 0,
+                          backgroundColor: const Color(0xFF6B8C89),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
-                        child: const Text('Registrarme'),
+                        child: const Text(
+                          'Registrarme',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ],
