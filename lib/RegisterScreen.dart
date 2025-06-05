@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models/user_model.dart';
 import 'databases/database_helper.dart';
-import 'widgets/styledcontainer.dart';
+import '../widgets/StyledContainer.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

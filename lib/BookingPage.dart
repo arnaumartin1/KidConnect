@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'Service.dart' as service_lib;
 import 'Booking.dart';
 import 'ParentDashboardScreen.dart';
-import 'mockbooking.dart'; // Importa la lista global
+import 'mockBooking.dart'; // Importa la lista global
+import 'ViewUserProfilePage.dart';
+
 
 class BookingPage extends StatefulWidget {
   final service_lib.Service service;
@@ -125,6 +127,22 @@ class _BookingPageState extends State<BookingPage> {
             const Spacer(),
             SizedBox(
               width: double.infinity,
+              child: TextButton.icon(
+                icon: const Icon(Icons.person, color: Color(0xFF6B8C89)),
+                label: const Text(
+                  'Ver el perfil del ofrecedor de servicios',
+                  style: TextStyle(
+                    color: Color(0xFF6B8C89),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                onPressed: _goToUserProfile,
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.check_circle),
                 style: ElevatedButton.styleFrom(
@@ -172,6 +190,28 @@ class _BookingPageState extends State<BookingPage> {
         _selectedTime = picked;
       });
     }
+  }
+  void _goToUserProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ViewUserProfilePage(
+          userInfo: {
+            'name': 'Juan',
+            'surname': 'Pérez',
+            'email': 'juan@example.com',
+            'city': widget.service.city,
+          },
+          services: [
+            {
+              'title': widget.service.title,
+              'description': widget.service.description,
+              'price': widget.service.price.toStringAsFixed(2),
+            },
+          ],
+        ),
+      ),
+    );
   }
 
   void _confirmBooking() {

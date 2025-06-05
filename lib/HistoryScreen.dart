@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/styledcontainer.dart';
+import '../widgets/StyledContainer.dart';
 import 'Booking.dart';
-import 'mockbooking.dart';
+import 'mockBooking.dart';
 import 'Rating.dart' as rating_lib;
 import 'RatingDialog.dart';
 
@@ -85,7 +85,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             children: [
                               Text(booking.providerName),
                               Text(
-                                '${booking.date.toLocal().toString().split(' ')[0]}',
+                                booking.date.toLocal().toString().split(' ')[0],
                                 style: const TextStyle(fontSize: 13, color: Colors.black54),
                               ),
                               Text(

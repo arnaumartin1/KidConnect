@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/styledcontainer.dart';
+import '../widgets/StyledContainer.dart';
 
 import 'dart:io';
 

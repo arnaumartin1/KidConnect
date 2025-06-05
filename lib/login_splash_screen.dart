@@ -18,14 +18,11 @@ class LoginSplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Spacer(),
-                Text(
-                  'KidConnect',
-                  style: TextStyle(
-                    color: Color(0xFF6B8C89),
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Image.asset(
+                  'assets/images/app-logo.png',
+                  height: 480, // Adjust size as needed
                 ),
+                
                 const Spacer(),
                 SizedBox(
                   width: double.infinity,

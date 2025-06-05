@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/styledcontainer.dart';
-import 'serviceexamplespage.dart'; // Asegúrate de importar la página de ejemplos de servicio
+import '../widgets/StyledContainer.dart';
+import 'ServiceExamplesPage.dart'; // Asegúrate de importar la página de ejemplos de servicio
 
 class ParentHomeScreen extends StatelessWidget {
   const ParentHomeScreen({super.key});

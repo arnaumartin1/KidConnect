@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/styledcontainer.dart';
+import '../widgets/StyledContainer.dart';
 
 class ParentDashboardScreen extends StatelessWidget {
   const ParentDashboardScreen({super.key});

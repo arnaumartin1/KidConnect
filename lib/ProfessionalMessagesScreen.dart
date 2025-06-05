@@ -29,7 +29,7 @@ class Chat {
 
 class ProfessionalMessageScreen extends StatefulWidget {
   final Map<String, dynamic> user;
-  const ProfessionalMessageScreen({Key? key, required this.user}) : super(key: key);
+  const ProfessionalMessageScreen({super.key, required this.user});
 
   @override
   _ProfessionalMessagesScreenState createState() => _ProfessionalMessagesScreenState();
@@ -168,7 +168,7 @@ class _ProfessionalMessagesScreenState extends State<ProfessionalMessageScreen> 
 class ChatScreen extends StatefulWidget {
   final Chat chat;
 
-  const ChatScreen({required this.chat});
+  const ChatScreen({super.key, required this.chat});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();

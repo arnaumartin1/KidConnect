@@ -2,38 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:project1/ParentMainPage.dart';
 import 'package:project1/ProfessionalMessagesScreen.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 import 'db_helper.dart';
 
 import 'AddServicePage.dart';
 import 'ProfessionalProfilePage.dart';
 import '/login_splash_screen.dart';
-import '/loginscreen.dart';
-import '/registerscreen.dart';
-import '/usertypeselectionscreen.dart';
-import '/parenthomescreen.dart';
-import '/parentdashboardscreen.dart';
+import '/LoginScreen.dart';
+import '/RegisterScreen.dart';
+import '/UserTypeSelectionScreen.dart';
+import '/ParentHomeScreen.dart';
+import '/ParentDashboardScreen.dart';
 import '/ProfessionalHomeScreen.dart';
-import '/professionaldashboardscreen.dart';
+import '/ProfessionalDashboardScreen.dart';
 import 'BookingPage.dart';
 import 'Service.dart'; 
 import 'MessagesScreen.dart'; 
 import 'HistoryScreen.dart';
 import 'ParentProfilePage.dart';
 import 'ServiceSearchPage.dart'; 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:project1/MyApp.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
 
-  try {
-    await DBHelper.initDB();
-    print('Database initialized successfully');
-  } catch (e) {
-    print('Error initializing database: $e');
+  // 🖥️ Only initialize FFI for desktop
+  if (!kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.linux ||
+       defaultTargetPlatform == TargetPlatform.windows ||
+       defaultTargetPlatform == TargetPlatform.macOS)) {
+    sqfliteFfiInit(); // Required to set up FFI
+    databaseFactory = databaseFactoryFfi;
   }
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
