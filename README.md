@@ -18,7 +18,15 @@ El objetivo principal de este proyecto es desarrollar un **MVP (Producto Mínimo
 ---
 
 ## 🧰 Tecnologías utilizadas
+Para el desarrollo de KidConnect, utilizamos un conjunto de herramientas modernas que nos permitieron trabajar de forma ágil, colaborativa y eficiente:
 
+- Flutter: Framework principal para el desarrollo de la aplicación móvil multiplataforma.
+- Visual Studio Code: Editor de código utilizado por el equipo de desarrollo.
+- GitHub: Plataforma para el control de versiones y colaboración en el código.
+- GitHub Copilot: Asistente de programación basado en IA que facilitó la escritura de código y sugerencias.
+- Trello: Herramienta de gestión de tareas para organizar el flujo de trabajo del equipo.
+- Miro: Plataforma de colaboración visual para el diseño de flujos, wireframes y brainstorming.
+- ChatGPT: Asistencia en redacción, generación de ideas, depuración de código y resolución de dudas técnicas.
 
 ## 🛠 Instalación y ejecución local
 
