@@ -36,3 +36,14 @@ Sigue estos pasos para clonar y correr el proyecto en tu máquina local:
    ```bash
    [https://github.com/arnaumartin1/KidConnect.git]
    cd kidconnect
+
+## 🛠 Instalación en Android
+
+Sigue estos pasos para instalar el proyecto en tu dispositivo Android:
+
+1. **Instala el apk:**
+   Entra en este enclace desde tu dispositivo móvil y descargalo directamente
+   https://drive.google.com/file/d/1onHgLenPVpnEp1wFtZhQ3qdCOeCrnghC/view?usp=drive_link
+
+
+Este proyecto puede considerarse finalizado.
